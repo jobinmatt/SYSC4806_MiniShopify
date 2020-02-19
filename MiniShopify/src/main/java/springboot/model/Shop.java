@@ -1,6 +1,7 @@
 package springboot.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,21 @@ public class Shop {
 
     @OneToMany
     private List<Item> products;
+
+    public Shop() {
+
+        tags = new ArrayList<String>();
+        products = new ArrayList<Item>();
+    }
+
+    public Shop(String name, String description, List<String> tags, User owner, List<Item> products) {
+
+        this.name = name;
+        this.description = description;
+        this.tags = tags;
+        this.owner = owner;
+        this.products = products;
+    }
 
     public long getId() {
         return id;

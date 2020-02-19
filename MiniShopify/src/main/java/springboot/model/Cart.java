@@ -1,6 +1,7 @@
 package springboot.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,6 +16,16 @@ public class Cart {
 
     @OneToMany
     private List<CartItem> items;
+
+    public Cart() {
+
+        items = new ArrayList<CartItem>();
+    }
+
+    public Cart(User owner) {
+
+        this.owner = owner;
+    }
 
     public long getId() {
         return id;
@@ -38,6 +49,16 @@ public class Cart {
 
     public void setItems(List<CartItem> items) {
         this.items = items;
+    }
+
+    public void addItem(CartItem item) {
+
+        this.items.add(item);
+    }
+
+    public void removeItem(CartItem item) {
+
+        this.items.remove(item);
     }
 
     @Override

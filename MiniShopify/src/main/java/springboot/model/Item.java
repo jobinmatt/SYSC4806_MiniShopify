@@ -19,6 +19,17 @@ public class Item {
     private String description;
     private int stockQuantity;
 
+    public Item() {
+    }
+
+    public Item(String name, String description, int stockQuantity, Shop shop) {
+
+        this.name = name;
+        this.description = description;
+        this.stockQuantity = stockQuantity;
+        this.shop = shop;
+    }
+
     public long getId() {
         return id;
     }

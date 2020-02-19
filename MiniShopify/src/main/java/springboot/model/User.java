@@ -1,6 +1,7 @@
 package springboot.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,10 +18,23 @@ public class User {
     private String password;
 
     @OneToMany
-    private List<Shop> ownedShop;
+    private List<Shop> ownedShops;
 
     @OneToOne
     private Cart personalCart;
+
+    public User() {
+
+        ownedShops = new ArrayList<Shop>();
+    }
+
+    public User(String firstName, String lastName, String email, String password) {
+
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
 
     public long getId() {
         return id;
@@ -62,12 +76,22 @@ public class User {
         this.password = password;
     }
 
-    public List<Shop> getOwnedShop() {
-        return ownedShop;
+    public List<Shop> getOwnedShops() {
+        return ownedShops;
     }
 
-    public void setOwnedShop(List<Shop> ownedShop) {
-        this.ownedShop = ownedShop;
+    public void setOwnedShops(List<Shop> ownedShop) {
+        this.ownedShops = ownedShop;
+    }
+
+    public void addShop(Shop shop) {
+
+        this.ownedShops.add(shop);
+    }
+
+    public void removeShop(Shop shop) {
+
+        this.ownedShops.remove(shop);
     }
 
     public Cart getPersonalCart() {
@@ -78,6 +102,11 @@ public class User {
         this.personalCart = personalCart;
     }
 
+    public boolean isMerchant() {
+
+        return ownedShops.size() == 0 ? true: false;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -86,7 +115,7 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", ownedShop=" + ownedShop +
+                ", ownedShop=" + ownedShops +
                 ", personalCart=" + personalCart +
                 '}';
     }

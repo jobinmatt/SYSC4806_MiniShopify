@@ -19,6 +19,15 @@ public class CartItem {
     @ManyToOne
     private Cart cart;
 
+    public CartItem() {
+    }
+
+    public CartItem(Item itemId, int quantity) {
+
+        this.itemId = itemId;
+        this.quantity = quantity;
+    }
+
     public long getId() {
         return id;
     }
