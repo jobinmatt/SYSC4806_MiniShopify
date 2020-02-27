@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <h1> Mini-Shopify </h1>
+    <hr>
+    <router-view></router-view>
   </div>
 </template>
 
