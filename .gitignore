@@ -40,3 +40,5 @@ log/
 target/
 
 MiniShopify.iml
+/backend/src/main/resources/static/
+/frontend/node/
