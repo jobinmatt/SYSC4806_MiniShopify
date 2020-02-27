@@ -39,4 +39,6 @@ hs_err_pid*
 log/
 target/
 
-MiniShopify/MiniShopify.iml
+MiniShopify.iml
+/backend/src/main/resources/static/
+/frontend/node/
