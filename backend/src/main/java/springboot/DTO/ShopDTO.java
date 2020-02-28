@@ -1,52 +1,39 @@
-package springboot.model;
+package springboot.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class Shop {
+public class ShopDTO {
 
-    @Id
-    @GeneratedValue
-    private long id;
-
+    @JsonProperty("name")
     private String name;
 
+    @JsonProperty("desc")
     private String description;
 
-    @ElementCollection
+    @JsonProperty("tags")
     private List<String> tags;
 
-    @ManyToOne
-    private User owner;
+    @JsonProperty("userId")
+    private Long userId;
 
-    @OneToMany
-    private List<Item> products;
+    @JsonProperty("products")
+    private List<Long> productIds;
 
-    public Shop() {
+    public ShopDTO() {
 
         tags = new ArrayList<String>();
-        products = new ArrayList<Item>();
+        productIds = new ArrayList<Long>();
     }
 
-    public Shop(String name, String description, List<String> tags, User owner, List<Item> products) {
+    public ShopDTO(String name, String description, List<String> tags, Long owner, List<Long> products) {
 
         this.name = name;
         this.description = description;
         this.tags = tags;
-        this.owner = owner;
-        this.products = products;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+        this.userId = owner;
+        this.productIds = products;
     }
 
     public String getName() {
@@ -73,31 +60,30 @@ public class Shop {
         this.tags = tags;
     }
 
-    public User getOwner() {
-        return owner;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public List<Item> getProducts() {
-        return products;
+    public List<Long> getProductIds() {
+        return productIds;
     }
 
-    public void setProducts(List<Item> products) {
-        this.products = products;
+    public void setProductIds(List<Long> productIds) {
+        this.productIds = productIds;
     }
 
     @Override
     public String toString() {
         return "Shop{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", tags=" + tags +
-                ", owner=" + owner +
-                ", products=" + products +
+                ", owner=" + userId +
+                ", products=" + productIds +
                 '}';
     }
 }
