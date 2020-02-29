@@ -1,7 +1,5 @@
 package springboot.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +19,9 @@ public class Shop {
     private List<String> tags;
 
     @ManyToOne
-    private User owner;
+    private Owner owner;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="shop")
     private List<Item> products;
 
     public Shop() {
@@ -32,7 +30,7 @@ public class Shop {
         products = new ArrayList<Item>();
     }
 
-    public Shop(String name, String description, List<String> tags, User owner, List<Item> products) {
+    public Shop(String name, String description, List<String> tags, Owner owner, List<Item> products) {
 
         this.name = name;
         this.description = description;
@@ -73,11 +71,11 @@ public class Shop {
         this.tags = tags;
     }
 
-    public User getOwner() {
+    public Owner getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(Owner owner) {
         this.owner = owner;
     }
 
@@ -96,7 +94,7 @@ public class Shop {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", tags=" + tags +
-                ", owner=" + owner +
+                ", owner=" + owner.getId() +
                 ", products=" + products +
                 '}';
     }

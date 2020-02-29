@@ -1,39 +1,51 @@
 package springboot.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShopDTO {
 
+    @JsonProperty("id")
+    private Long id;
+
     @JsonProperty("name")
-    private String name;
+    private String name; //req
 
     @JsonProperty("desc")
-    private String description;
+    private String description; //req
 
     @JsonProperty("tags")
     private List<String> tags;
 
     @JsonProperty("userId")
-    private Long userId;
+    private Long userId; //req
 
     @JsonProperty("products")
-    private List<Long> productIds;
+    private List<ItemDTO> products;
 
     public ShopDTO() {
 
         tags = new ArrayList<String>();
-        productIds = new ArrayList<Long>();
+        products = new ArrayList<ItemDTO>();
     }
 
-    public ShopDTO(String name, String description, List<String> tags, Long owner, List<Long> products) {
-
+    public ShopDTO(Long id, String name, String description, List<String> tags, Long owner, List<ItemDTO> products) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.tags = tags;
         this.userId = owner;
-        this.productIds = products;
+        this.products = products;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -68,12 +80,12 @@ public class ShopDTO {
         this.userId = userId;
     }
 
-    public List<Long> getProductIds() {
-        return productIds;
+    public List<ItemDTO> getProducts() {
+        return products;
     }
 
-    public void setProductIds(List<Long> productIds) {
-        this.productIds = productIds;
+    public void setProducts(List<ItemDTO> products) {
+        this.products = products;
     }
 
     @Override
@@ -83,7 +95,7 @@ public class ShopDTO {
                 ", description='" + description + '\'' +
                 ", tags=" + tags +
                 ", owner=" + userId +
-                ", products=" + productIds +
+                ", products=" + products +
                 '}';
     }
 }

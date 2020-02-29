@@ -11,10 +11,10 @@ public class Cart {
     @GeneratedValue
     private long id;
 
-    @OneToOne
-    private User owner;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Owner owner;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cart")
     private List<CartItem> items;
 
     public Cart() {
@@ -22,7 +22,7 @@ public class Cart {
         items = new ArrayList<CartItem>();
     }
 
-    public Cart(User owner) {
+    public Cart(Owner owner) {
 
         this.owner = owner;
     }
@@ -35,11 +35,11 @@ public class Cart {
         this.id = id;
     }
 
-    public User getOwner() {
+    public Owner getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(Owner owner) {
         this.owner = owner;
     }
 
@@ -65,7 +65,7 @@ public class Cart {
     public String toString() {
         return "Cart{" +
                 "id=" + id +
-                ", owner=" + owner +
+                ", owner=" + owner.getId() +
                 ", items=" + items +
                 '}';
     }

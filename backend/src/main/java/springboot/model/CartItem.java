@@ -66,7 +66,7 @@ public class CartItem {
                 "id=" + id +
                 ", itemId=" + itemId +
                 ", quantity=" + quantity +
-                ", cart=" + cart +
+                ", cart=" + cart.getId() +
                 '}';
     }
 }

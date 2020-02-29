@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class User {
+public class Owner {
 
     @Id
     @GeneratedValue
@@ -17,18 +17,18 @@ public class User {
     private String email;
     private String password;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<Shop> ownedShops;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Cart personalCart;
 
-    public User() {
+    public Owner() {
 
         ownedShops = new ArrayList<Shop>();
     }
 
-    public User(String firstName, String lastName, String email, String password) {
+    public Owner(String firstName, String lastName, String email, String password) {
 
         this.firstName = firstName;
         this.lastName = lastName;
@@ -116,7 +116,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", ownedShop=" + ownedShops +
-                ", personalCart=" + personalCart +
+                ", personalCart=" + personalCart.getId() +
                 '}';
     }
 }

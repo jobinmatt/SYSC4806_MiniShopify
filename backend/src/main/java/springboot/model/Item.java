@@ -74,7 +74,7 @@ public class Item {
     public String toString() {
         return "Item{" +
                 "id=" + id +
-                ", shop=" + shop +
+                ", shop=" + shop.getId() +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", stockQuantity=" + stockQuantity +
