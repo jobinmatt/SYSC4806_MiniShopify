@@ -1,5 +1,7 @@
 package springboot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,6 +15,7 @@ public class Item {
     private long id;
 
     @ManyToOne
+    @JsonIgnoreProperties("products")
     private Shop shop;
 
     private String name;

@@ -40,13 +40,6 @@ public class ShopController {
             if(newShop.getTags() != null && !newShop.getTags().isEmpty()){
                 s.setTags(newShop.getTags());
             }
-            Optional<Owner> owner = userRepo.findById(newShop.getUserId());
-            if(owner.isPresent()){
-                s.setOwner(owner.get());
-                owner.get().getOwnedShops().add(s);
-            } else {
-                return ResponseEntity.badRequest().body("User id: " + newShop.getUserId() + " not found"); //Error so we return null obj and
-            }
             if(newShop.getProducts() != null && !newShop.getProducts().isEmpty()){
                 for(ItemDTO i : newShop.getProducts()){
                     if(!isEmptyNull(i.getName()) && !isEmptyNull(i.getDescription())
@@ -59,6 +52,12 @@ public class ShopController {
                         s.getProducts().add(item);
                     }
                 }
+            }
+            Optional<Owner> owner = userRepo.findById(newShop.getUserId());
+            if(owner.isPresent()){
+                s.setOwner(owner.get());
+            } else {
+                return ResponseEntity.badRequest().body("User id: " + newShop.getUserId() + " not found"); //Error so we return null obj and
             }
             shopRepo.save(s);
             return ResponseEntity.ok(s); //Everything is OK so we send the okay response with the new shop in the body
@@ -93,14 +92,6 @@ public class ShopController {
                 if(!isEmptyNull(editShop.getDescription()) && !newShop.getDescription().equals(editShop.getDescription())){
                     newShop.setDescription(editShop.getDescription());
                 }
-                if(editShop.getUserId() != null && newShop.getOwner().getId() != editShop.getUserId()){
-                    Optional<Owner> owner = userRepo.findById(editShop.getUserId());
-                    if(owner.isPresent()){
-                        newShop.setOwner(owner.get());
-                    } else {
-                        return ResponseEntity.badRequest().body("New owner ID: " + editShop.getUserId() + " not found");
-                    }
-                }
                 if(editShop.getProducts() != null){
                     List<Item> iList = new ArrayList<>();
                     for(ItemDTO i : editShop.getProducts()){
@@ -116,6 +107,15 @@ public class ShopController {
                 if(editShop.getTags() != null){
                     newShop.setTags(editShop.getTags());
                 }
+
+                if(editShop.getUserId() != null && newShop.getOwner().getId() != editShop.getUserId()){
+                    Optional<Owner> owner = userRepo.findById(editShop.getUserId());
+                    if(owner.isPresent()){
+                        newShop.setOwner(owner.get());
+                    } else {
+                        return ResponseEntity.badRequest().body("New owner ID: " + editShop.getUserId() + " not found");
+                    }
+                }
                 shopRepo.save(newShop);
 
                 return ResponseEntity.ok(newShop);
@@ -129,17 +129,29 @@ public class ShopController {
     }
 
     @DeleteMapping(value = "/api/shop")
-    public ResponseEntity deleteShop(@RequestParam(value = "shopId") Long shopId){
-        if(shopId != null){
-            Optional<Shop> s = shopRepo.findById(shopId);
-            if(s.isPresent()){
-                shopRepo.delete(s.get());
-            } else {
-                return ResponseEntity.badRequest().body("Shop ID: " + shopId + " not found");
-            }
-            return ResponseEntity.ok("Shop ID: " + shopId + " deleted");
+    public ResponseEntity deleteShop(@RequestParam(value = "shopId") Long shopId, @RequestParam(value = "ownerId") Long ownerId){
+        if(shopId != null && ownerId != null){
+           Optional<Owner> owner = userRepo.findById(ownerId);
+           Shop shopToDel = null;
+           if(owner.isPresent()){
+               for(Shop s : owner.get().getOwnedShops()){
+                   if(s.getId() == shopId){
+                       shopToDel = s;
+                       break;
+                   }
+               }
+               if(shopToDel != null){
+                   shopRepo.delete(shopToDel);
+                   owner.get().getOwnedShops().remove(shopToDel);
+               } else {
+                   return ResponseEntity.badRequest().body("Shop ID: " + shopId + " not found");
+               }
+               return ResponseEntity.ok("Shop ID: " + shopId + " deleted");
+           } else{
+               return ResponseEntity.ok("Owner ID: " + ownerId + "not found");
+           }
         } else {
-            return ResponseEntity.badRequest().body("Shop ID is null");
+            return ResponseEntity.badRequest().body("Shop ID or Owner ID is null");
         }
     }
 

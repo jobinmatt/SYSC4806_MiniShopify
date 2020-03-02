@@ -1,5 +1,7 @@
 package springboot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +20,11 @@ public class Owner {
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @JsonIgnoreProperties("owner")
     private List<Shop> ownedShops;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("owner")
     private Cart personalCart;
 
     public Owner() {
