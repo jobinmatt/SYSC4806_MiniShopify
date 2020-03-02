@@ -1,11 +1,16 @@
 package springboot.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import springboot.model.Owner;
+import springboot.model.Shop;
+
 import java.util.List;
 
 public interface OwnerRepository extends JpaRepository<Owner, Long> {
 
-    List<Owner> findByLastName(String lastName);
-    Owner findByEmail (String email);
+    List<Owner> findByFirstName(@Param("firstName") String firstName);
+    List<Owner> findByLastName(@Param("lastName") String lastName);
+    List<Owner> findByFirstNameAndLastName(@Param("firstName") String firstName, @Param("lastName") String lastName);
+    Owner findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 }
