@@ -1,5 +1,7 @@
 package springboot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,6 +19,7 @@ public class CartItem {
     private int quantity;
 
     @ManyToOne
+    @JsonIgnoreProperties("items")
     private Cart cart;
 
     public CartItem() {
@@ -66,7 +69,7 @@ public class CartItem {
                 "id=" + id +
                 ", itemId=" + itemId +
                 ", quantity=" + quantity +
-                ", cart=" + cart +
+                ", cart=" + cart.getId() +
                 '}';
     }
 }

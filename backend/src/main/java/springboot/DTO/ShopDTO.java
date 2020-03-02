@@ -1,53 +1,50 @@
-package springboot.model;
+package springboot.DTO;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class Shop {
+public class ShopDTO {
 
-    @Id
-    @GeneratedValue
-    private long id;
+    @JsonProperty("id")
+    private Long id;
 
-    private String name;
+    @JsonProperty("name")
+    private String name; //req
 
-    private String description;
+    @JsonProperty("desc")
+    private String description; //req
 
-    @ElementCollection
+    @JsonProperty("tags")
     private List<String> tags;
 
-    @ManyToOne
-    @JsonIgnoreProperties("ownedShops")
-    private Owner owner;
+    @JsonProperty("userId")
+    private Long userId; //req
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="shop")
-    @JsonIgnoreProperties("shop")
-    private List<Item> products;
+    @JsonProperty("products")
+    private List<ItemDTO> products;
 
-    public Shop() {
+    public ShopDTO() {
 
         tags = new ArrayList<String>();
-        products = new ArrayList<Item>();
+        products = new ArrayList<ItemDTO>();
     }
 
-    public Shop(String name, String description, List<String> tags, Owner owner, List<Item> products) {
-
+    public ShopDTO(Long id, String name, String description, List<String> tags, Long owner, List<ItemDTO> products) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.tags = tags;
-        this.owner = owner;
+        this.userId = owner;
         this.products = products;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -75,30 +72,29 @@ public class Shop {
         this.tags = tags;
     }
 
-    public Owner getOwner() {
-        return owner;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setOwner(Owner owner) {
-        this.owner = owner;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public List<Item> getProducts() {
+    public List<ItemDTO> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Item> products) {
+    public void setProducts(List<ItemDTO> products) {
         this.products = products;
     }
 
     @Override
     public String toString() {
         return "Shop{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", tags=" + tags +
-                ", owner=" + owner.getId() +
+                ", owner=" + userId +
                 ", products=" + products +
                 '}';
     }
