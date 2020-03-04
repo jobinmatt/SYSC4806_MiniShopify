@@ -17,6 +17,19 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>springboot.Application</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
     <modules>
         <module>frontend</module>
         <module>backend</module>
