@@ -6,3 +6,8 @@ Merchant can create a new shop by filling in a form containing: the name of the 
 
 ## Setup Instructions
 Can access H2 Console at http://localhost:8080/h2-console. The database will save to the path /data/MiniShopify. It can be altered by changing the field spring.datasource.url=jdbc:h2:file:/data/MiniShopify in the application.properties files. If tables need to be precreated create a data.sql file in main/java/resources and Spring Boot will do it automatically.
+
+## Weekly Scrums
+
+Feb 18 - [#19](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/19)
+Feb 26 - [#26](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/26)
