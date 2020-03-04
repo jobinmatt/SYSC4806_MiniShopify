@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dserver.port=$PORT -jar backend/target/*.jar -Dspring.profiles.active=prod
+web: java -Dserver.port=$PORT -jar backend/target/mini-shopify-backend-1.0-SNAPSHOT.jar
