@@ -2,6 +2,6 @@ language: java
 deploy:
   provider: heroku
   edge: true
-  app: sysc4806-minishopify
+  app: mini-shopify-4806
   api_key:
-    secure: oZWlPm2pDpUd4GYimxUgZtqAM+CYMsPm+xf+i6LXqU/c4JAYbu1zmSdb0hrsC4w4OMF2Qui/fYKksa9krBxso4z+7lCrgbXdeUvgPGv5EnuTrAHpZaJYQ7jZyJa+iwW9z0w3lHucB7yp9FrvghzNF2P4TMKaa8g7M02mpvYYI74bGiepF7Z8oYumDQQCf9/XtgTcxNbH4MISIi/aUM6pH/k9vR+wDS+XCWzPyXWeesMwLWcCWE3pMF1LOm+y4Jo5VdoOOr1SHorpgSFWJmhP9RgUV0n61Ek/B6U298HKfpawjQ5eGXrfBuBLicaxJhwn+/wNid+VKCwHTI4ORTSIu830QAZuCVrQ2dHDw/qpV/I7trPGLdPFAseAvyfq2nTkjYSaEAJ/6R/AMycLZCQBb7zjD1LbltlR83dDY4s6sJpJ0d54c+gHtoC0J3Xx5No235wL4H6MRh//+9nHnPhxpaCX/qEkMM0HLbAYqzZ2D5kdWl3bQSVliV9ANB1szvHvu57iW0Gf4+iE+9shIyau3p48dyZ4sh3i3xaB/uZWwBQnX4g35KcbHvMIySoU/E6nE8a+B/XVNMF5KWgCgisjFL/KynziJbiVBRmP7H2pQRKCrMcGiSXvvpdkTXeMvs8vi000hURsI+Vx5QnBH9ca6RCzZ4jXB9K2LBxxJQvjAig=
+    secure: $HEROKU_API_KEY
