@@ -9,11 +9,14 @@ module.exports = {
     const devServer = browser.globals.devServerURL
 
     browser
-      .url(devServer)
-      .waitForElementVisible('#app', 5000)
-      .assert.elementPresent('.hello')
-      .assert.containsText('h1', 'Welcome to Your Vue.js App')
-      .assert.elementCount('img', 1)
-      .end()
+      .url(devServer+"#/signup")
+      .waitForElementVisible('.content', 5000)
+      .assert.elementPresent('.instr')
+      .assert.elementPresent('.half')
+      .assert.elementCount(".signupform", 5)
+      .assert.visible('button.content'),
+      //step 2 the api stuff goes here
+      browser
+        .click('button.content')
   }
 }
