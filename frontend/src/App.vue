@@ -1,7 +1,14 @@
 <template>
   <div id="app">
-    <h1> Mini-Shopify </h1>
-    <hr>
+    <div id="navbar">
+      <div>
+        <icon></icon><span id="title"> Mini-Shopify </span>
+      </div>
+      <div class="links">
+        <span>Login</span>
+        <button id="signup">Sign Up</button>
+      </div>
+    </div>
     <router-view></router-view>
   </div>
 </template>
@@ -13,12 +20,39 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  #navbar {
+    display: flex;
+    margin-left: 15%;
+    margin-right:15%;
+    padding: 1%;
+    padding-left: 2%;
+    padding-right: 5%;
+
+    background: #DDECFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+    justify-content: space-between;
+  }
+  #title {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 49px;
+  }
+  .links{
+    display: flex;
+    line-height: 49px;
+    width: 200px;
+    justify-content: space-between;
+  }
+  #signup{
+    padding: 3%;
+    padding-left: 10%;
+    padding-right: 10%;
+    background: #007DC4;
+    border-radius: 8px;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.1);
+    color: white;
+  }
 </style>
