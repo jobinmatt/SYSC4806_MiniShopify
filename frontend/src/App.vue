@@ -5,8 +5,8 @@
         <icon></icon><span id="title"> Mini-Shopify </span>
       </div>
       <div class="links">
-        <span>Login</span>
-        <button id="signup">Sign Up</button>
+        <span><a onclick="this.$router.replace('/login')">Login</a></span>
+        <button id="signup" onclick="this.$router.replace('/signup')">Sign Up</button>
       </div>
     </div>
     <router-view></router-view>
