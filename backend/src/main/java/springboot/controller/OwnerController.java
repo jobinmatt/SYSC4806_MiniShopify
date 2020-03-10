@@ -54,7 +54,7 @@ public class OwnerController {
         }
     }
 
-    @RequestMapping(value = "/api/shop", method = RequestMethod.PATCH, consumes = "application/json")
+    @RequestMapping(value = "/api/owner", method = RequestMethod.PATCH, consumes = "application/json")
     public ResponseEntity editOwner(@RequestBody OwnerDTO editOwner){
         if(editOwner != null && editOwner.getId() != null){
             Optional<Owner> user = ownerRepo.findById(editOwner.getId());
@@ -88,7 +88,7 @@ public class OwnerController {
         }
     }
 
-    @DeleteMapping(value = "/api/shop")
+    @DeleteMapping(value = "/api/owner")
     public ResponseEntity deleteOwner(@RequestParam(value = "ownerId") Long ownerId){
         if(ownerId != null){
             Optional<Owner> owner = ownerRepo.findById(ownerId);
