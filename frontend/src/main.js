@@ -9,6 +9,7 @@ import Cart from './pages/Cart'
 import Error from './pages/Error'
 import ShopPage from './pages/ShopPage'
 import Login from './pages/Login'
+import CreateShopPage from './pages/CreateShopPage'
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 
@@ -18,7 +19,8 @@ const routes = [
   { path: '/cart', component: Cart },
   { path: '/error', component: Error },
   { path: '/shop', component: ShopPage },
-  { path: '/login', component: Login }
+  { path: '/login', component: Login },
+  { path: '/createshop', component: CreateShopPage },
 ]
 
 const router = new VueRouter({
