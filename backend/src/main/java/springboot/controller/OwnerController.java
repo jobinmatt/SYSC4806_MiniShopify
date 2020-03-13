@@ -11,6 +11,7 @@ import springboot.model.Shop;
 
 import java.util.Optional;
 
+@RestController
 public class OwnerController {
 
     private OwnerRepository ownerRepo;

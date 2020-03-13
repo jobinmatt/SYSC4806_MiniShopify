@@ -1,11 +1,13 @@
 package springboot.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import springboot.model.CartItem;
 
 import java.util.List;
 
 public class CartDTO {
+
 
     @JsonProperty("id")
     private Long id;
@@ -14,6 +16,7 @@ public class CartDTO {
     private String owner;
 
     @JsonProperty("items")
+    @JsonIgnoreProperties(value = { "items" })
     private List<ItemDTO> items;
 
     public CartDTO() {
