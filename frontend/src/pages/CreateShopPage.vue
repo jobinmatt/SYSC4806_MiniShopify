@@ -9,15 +9,29 @@
         <input class="form_input" type="text" placeholder="Enter shop description..." id="shop_description"><br>
         <h2>SHOP TAGS:</h2>
         <input class="form_input" type="text" placeholder="Enter shop tags..." id="shop_tags"><br>
-
+        <div>
+          <EditItem></EditItem>
+          <button>+</button>
+        </div>
         <button>Create Shop</button>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+  import EditItem from '../components/EditItem'
+
+  export default {
+    name: 'CreateShopPage',
+    components: {
+      EditItem
+    }
+  }
+</script>
+
 <style>
-  .content{
-    margin: auto;
+  .content {
     margin-top: 2%;
     width: 50%;
     background: #DDECFF;
@@ -27,22 +41,26 @@
     padding-bottom: 5%;
     text-align: center;
   }
-  .center{
-    margin:auto;
-    width:50%;
+
+  .center {
+    margin: auto;
+    width: 50%;
   }
-  .flex-form{
-    display:flex;
+
+  .flex-form {
+    display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
   }
-  .half{
+
+  .half {
     display: flex;
     flex-direction: row;
     align-items: center;
   }
-  .instr{
+
+  .instr {
     text-align: left;
   }
 </style>
