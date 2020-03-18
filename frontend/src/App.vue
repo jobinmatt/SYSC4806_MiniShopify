@@ -54,4 +54,10 @@ export default {
     box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.1);
     color: white;
   }
+  .errors{
+    list-style-type: none;
+    border: 2px solid darkred;
+    border-radius: 5px;
+    font-size: 12px;
+  }
 </style>
