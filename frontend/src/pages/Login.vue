@@ -15,6 +15,7 @@
 </template>
 <script>
   import axios from 'axios'
+  import {TOKEN_COOKIE_HEADER, TOKEN_HEADER_STRING, TOKEN_PREFIX} from "../constants/constants";
   export default {
     data () {
       return {
@@ -28,49 +29,44 @@
       isValid: function (e){
         this.errors =[];
         if (!this.email) {
-          this.errors.push('Email required.');
+          this.errors.push('Email required.')
         } else if (!this.validEmail(this.email)) {
-          this.errors.push('Valid email required.');
+          this.errors.push('Valid email required.')
         }
         if (!this.password){
-          this.errors.push('Password required.');
+          this.errors.push('Password required.')
         }
         if (this.errors.length==0){
           return true;
         }else{
           return false;
         }
-        e.preventDefault();
+        e.preventDefault()
       },
       validEmail: function (email){
         var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-        return re.test(email);
+        return re.test(email)
       },
-      passwordConfirmed: function (p, cp){
-        if (p===cp) {
-          return true;
-        }else{
-          return false;
-        }
-      },
-      signUp: function (e) {
+      login: function (e) {
         if (!this.isValid(e)){
           console.log("invalid form")
           return
         }else{
-          axios.post('/api/owner', {
-            firstName: this.firstName,
-            lastName: this.lastName,
+          axios.post('/api/login', {
             email: this.email,
             password:this.password
           })
             .then((response)=> {
-              console.log(response);
-              this.$router.push({path: '/'})
+              var mytoken = response.headers[TOKEN_HEADER_STRING]
+              mytoken = mytoken.replace(TOKEN_PREFIX, "")
+              document.cookie+= TOKEN_COOKIE_HEADER+"="+mytoken;
+              this.$emit('userLogin')
+              this.$router.go(-1)
             })
             .catch((error)=> {
-              console.log(error);
+              console.log(error)
+              this.errors.push('Invalid username or password.')
             });
         }
 

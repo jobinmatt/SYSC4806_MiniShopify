@@ -5,17 +5,42 @@
         <icon></icon><span id="title"> Mini-Shopify </span>
       </div>
       <div class="links">
-        <span><a onclick="this.$router.replace('/login')">Login</a></span>
-        <button id="signup" onclick="this.$router.replace('/signup')">Sign Up</button>
+        <span><a @click="this.toggleLogin">{{linkTextLogin}}</a></span>
+        <button id="signup" @click="this.$router.push({path:'/signup'})">Sign Up</button>
       </div>
     </div>
-    <router-view></router-view>
+    <router-view @userLogin="this.updateBar"></router-view>
   </div>
 </template>
 
 <script>
+  import {TOKEN_COOKIE_HEADER, setCookie} from "./constants/constants";
 export default {
-  name: 'App'
+  name: 'App',
+  data() {
+    return{
+      isUserLogged:false,
+      linkTextLogin:"Login"
+    }
+  },
+  methods:{
+      updateBar: function(e){
+        this.isUserLogged=true
+        this.linkTextLogin="Logout"
+      },
+      logoutUser: function(){
+        //deleting token
+        setCookie(TOKEN_COOKIE_HEADER, "",0)
+        this.isUserLogged=false
+        this.linkTextLogin="Login"
+      },
+      toggleLogin: function(){
+        if (this.isUserLogged)//logging out
+          this.logoutUser()
+        else
+          this.$router.push({path: '/login'})
+      }
+  }
 }
 </script>
 
