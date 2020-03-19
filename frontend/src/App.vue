@@ -6,7 +6,7 @@
       </div>
       <div class="links">
         <span><a @click="this.toggleLogin">{{linkTextLogin}}</a></span>
-        <button id="signup" @click="this.$router.push({path:'/signup'})">Sign Up</button>
+        <router-link to="/signup"><button id="signup">Sign Up</button></router-link>
       </div>
     </div>
     <router-view @userLogin="this.updateBar"></router-view>
