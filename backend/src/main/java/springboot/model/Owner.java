@@ -106,10 +106,10 @@ public class Owner {
         this.personalCart = personalCart;
     }
 
-    public boolean isMerchant() {
-
-        return ownedShops.size() == 0 ? true: false;
-    }
+//    public boolean isMerchant() {
+//
+//        return ownedShops.size() == 0 ? true: false;
+//    }
 
     @Override
     public String toString() {

@@ -69,8 +69,8 @@ public class ShopController {
     @GetMapping(value = "/api/shop")
     public ResponseEntity getShop(@RequestParam(value = "shopId") Long shopId){
         if(shopId != null){
-            Shop shop = shopRepo.findByShopId(shopId);
-            if(shop != null){
+            Optional<Shop> shop = shopRepo.findById(shopId);
+            if(shop.isPresent()){
                 return ResponseEntity.ok(shop);
             } else {
                 return ResponseEntity.badRequest().body("Shop ID: " + shopId + " not found");
@@ -135,14 +135,14 @@ public class ShopController {
            Shop shopToDel = null;
            if(owner.isPresent()){
                for(Shop s : owner.get().getOwnedShops()){
-                   if(s.getShopId() == shopId){
+                   if(s.getId() == shopId){
                        shopToDel = s;
                        break;
                    }
                }
                if(shopToDel != null){
-                   shopRepo.delete(shopToDel);
                    owner.get().getOwnedShops().remove(shopToDel);
+                   shopRepo.delete(shopToDel);
                } else {
                    return ResponseEntity.badRequest().body("Shop ID: " + shopId + " not found");
                }
