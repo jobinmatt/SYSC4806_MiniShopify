@@ -11,7 +11,7 @@ public class Shop {
 
     @Id
     @GeneratedValue
-    private long id;
+    private long shopId;
 
     private String name;
 
@@ -43,12 +43,12 @@ public class Shop {
         this.products = products;
     }
 
-    public long getId() {
-        return id;
+    public long getShopId() {
+        return shopId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setShopId(long id) {
+        this.shopId = id;
     }
 
     public String getName() {
@@ -94,7 +94,7 @@ public class Shop {
     @Override
     public String toString() {
         return "Shop{" +
-                "id=" + id +
+                "id=" + shopId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", tags=" + tags +

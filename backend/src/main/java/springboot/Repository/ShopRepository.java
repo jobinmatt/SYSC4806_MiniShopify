@@ -12,5 +12,5 @@ public interface ShopRepository extends JpaRepository<Shop, Long>{
     List<Shop> findByNameAndDescription(@Param("name") String name, @Param("description")String description);
 //    List<Shop> findByTags(@Param("tags") List<String> tags);
 
-    Shop findById (long id);
+    Shop findByShopId (Long id);
 }
