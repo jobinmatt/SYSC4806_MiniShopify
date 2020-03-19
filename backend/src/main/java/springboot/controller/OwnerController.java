@@ -1,6 +1,7 @@
 package springboot.controller;
 
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +18,13 @@ public class OwnerController {
 
     private OwnerRepository ownerRepo;
     private ShopRepository shopRepo;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public OwnerController(OwnerRepository userRepo, ShopRepository shopRepo){
+    public OwnerController(OwnerRepository userRepo, ShopRepository shopRepo,BCryptPasswordEncoder bCryptPasswordEncoder ){
         this.ownerRepo = userRepo;
         this.shopRepo = shopRepo;
+        this.bCryptPasswordEncoder=bCryptPasswordEncoder;
     }
 
     @RequestMapping(value = "/api/owner",method = RequestMethod.POST, consumes = "application/json")
@@ -38,8 +41,7 @@ public class OwnerController {
             user.setFirstName(newOwner.getFirstName());
             user.setLastName(newOwner.getLastName());
             user.setEmail(newOwner.getEmail());
-            user.setPassword(BCrypt.hashpw(newOwner.getPassword(), BCrypt.gensalt()));
-
+            user.setPassword(bCryptPasswordEncoder.encode(newOwner.getPassword()));
             ownerRepo.save(user);
             return ResponseEntity.ok().body("User added"); //Everything is OK so we send the okay response with the new shop in the body
         } else {
@@ -47,7 +49,7 @@ public class OwnerController {
         }
     }
 
-    @GetMapping(value = "/api/login")
+    @RequestMapping(value = "/api/login",method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity login (@RequestBody OwnerDTO owner) {
         if (owner != null && !isEmptyNull(owner.getEmail()) && owner.getPassword() != null) {
 
