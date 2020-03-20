@@ -28,8 +28,11 @@ public class Owner {
     private Cart personalCart;
 
     public Owner() {
-
+        //need them to not be null thanks :).
         ownedShops = new ArrayList<Shop>();
+        personalCart=new Cart();
+        firstName="";
+        lastName="";
     }
 
     public Owner(String firstName, String lastName, String email, String password) {

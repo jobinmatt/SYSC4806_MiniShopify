@@ -5,17 +5,42 @@
         <icon></icon><span id="title"> Mini-Shopify </span>
       </div>
       <div class="links">
-        <span><a onclick="this.$router.replace('/login')">Login</a></span>
-        <button id="signup" onclick="this.$router.replace('/signup')">Sign Up</button>
+        <span><a @click="this.toggleLogin">{{linkTextLogin}}</a></span>
+        <router-link to="/signup"><button id="signup">Sign Up</button></router-link>
       </div>
     </div>
-    <router-view></router-view>
+    <router-view @userLogin="this.updateBar"></router-view>
   </div>
 </template>
 
 <script>
+  import {TOKEN_COOKIE_HEADER, setCookie} from "./constants/constants";
 export default {
-  name: 'App'
+  name: 'App',
+  data() {
+    return{
+      isUserLogged:false,
+      linkTextLogin:"Login"
+    }
+  },
+  methods:{
+      updateBar: function(e){
+        this.isUserLogged=true
+        this.linkTextLogin="Logout"
+      },
+      logoutUser: function(){
+        //deleting token
+        setCookie(TOKEN_COOKIE_HEADER, "",0)
+        this.isUserLogged=false
+        this.linkTextLogin="Login"
+      },
+      toggleLogin: function(){
+        if (this.isUserLogged)//logging out
+          this.logoutUser()
+        else
+          this.$router.push({path: '/login'})
+      }
+  }
 }
 </script>
 
@@ -53,5 +78,11 @@ export default {
     border-radius: 8px;
     box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.1);
     color: white;
+  }
+  .errors{
+    list-style-type: none;
+    border: 2px solid darkred;
+    border-radius: 5px;
+    font-size: 12px;
   }
 </style>

@@ -66,7 +66,7 @@ public class ShopController {
         }
     }
 
-    @GetMapping(value = "/api/shop")
+    @GetMapping(value = "/api/public/shop")
     public ResponseEntity getShop(@RequestParam(value = "shopId") Long shopId){
         if(shopId != null){
             Optional<Shop> shop = shopRepo.findById(shopId);
