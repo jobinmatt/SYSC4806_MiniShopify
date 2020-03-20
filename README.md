@@ -11,3 +11,4 @@ Can access H2 Console at http://localhost:8080/h2-console. The database will sav
 
 Feb 18 - [#19](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/19)
 Feb 26 - [#26](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/26)
+Mar 12 - [#62](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/62)
