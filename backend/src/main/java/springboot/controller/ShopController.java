@@ -141,8 +141,8 @@ public class ShopController {
                    }
                }
                if(shopToDel != null){
-                   shopRepo.delete(shopToDel);
                    owner.get().getOwnedShops().remove(shopToDel);
+                   shopRepo.delete(shopToDel);
                } else {
                    return ResponseEntity.badRequest().body("Shop ID: " + shopId + " not found");
                }
