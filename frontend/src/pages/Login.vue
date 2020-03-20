@@ -78,7 +78,7 @@
 
   }
 </script>
-<style>
+<style scoped>
   .errors{
     list-style-type: none;
     border: 2px solid darkred;
