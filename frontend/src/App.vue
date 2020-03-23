@@ -44,12 +44,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   #navbar {
     display: flex;
     margin-left: 15%;
     margin-right:15%;
-    padding: 1%;
     padding-left: 2%;
     padding-right: 5%;
     background: #DDECFF;
@@ -71,7 +70,6 @@ export default {
     justify-content: space-between;
   }
   #signup{
-    padding: 3%;
     padding-left: 10%;
     padding-right: 10%;
     background: #007DC4;
