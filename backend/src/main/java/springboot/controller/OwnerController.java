@@ -43,7 +43,7 @@ public class OwnerController {
             user.setEmail(newOwner.getEmail());
             user.setPassword(bCryptPasswordEncoder.encode(newOwner.getPassword()));
             ownerRepo.save(user);
-            return ResponseEntity.ok().body("User added"); //Everything is OK so we send the okay response with the new shop in the body
+            return ResponseEntity.ok().body("{'msg': 'User added','ownerId':"+user.getId()+"}"); //Everything is OK so we send the okay response with the new shop in the body
         } else {
             return ResponseEntity.badRequest().body("Owner object was null");
         }
@@ -58,8 +58,8 @@ public class OwnerController {
             if (user == null) {
                 return ResponseEntity.badRequest().body("Email not found");
             }
-            if (BCrypt.checkpw(owner.getPassword(), user.getPassword())) {
-                return ResponseEntity.ok().body("Login Successful");
+            if (bCryptPasswordEncoder.encode(owner.getPassword()).equals(user.getPassword())) {
+                return ResponseEntity.ok().body("{'msg': 'Login successful','ownerId':"+user.getId()+"}");
             } else {
                 return ResponseEntity.badRequest().body("Wrong password");
             }
