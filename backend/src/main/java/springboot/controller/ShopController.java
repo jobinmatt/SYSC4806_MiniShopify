@@ -232,7 +232,7 @@ public class ShopController {
         }
     }
 
-    @GetMapping(value = "/api/allShops")
+    @GetMapping(value = "/api/public/allShops")
     public ResponseEntity getAllShops(){
         List<Shop> shops = shopRepo.findAll();
         if(shops != null){
