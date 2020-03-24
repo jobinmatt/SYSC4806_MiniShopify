@@ -10,7 +10,10 @@ public interface ShopRepository extends JpaRepository<Shop, Long>{
     List<Shop> findByName(@Param("name") String name);
     List<Shop> findByDescription(@Param("description")String description);
     List<Shop> findByNameAndDescription(@Param("name") String name, @Param("description")String description);
-//    List<Shop> findByTags(@Param("tags") List<String> tags);
+    List<Shop> findByTagsIn(@Param("tags") List<String> tags);
+    List<Shop> findByNameAndTagsIn(@Param("name") String name, @Param("tags") List<String> tags);
+    List<Shop> findByDescriptionAndTagsIn(@Param("description") String description, @Param("tags") List<String> tags);
+    List<Shop> findByNameAndDescriptionAndTagsIn(@Param("name") String name, @Param("description")String description, @Param("tags") List<String> tags);
 
     Shop findById (long id);
 }

@@ -33,8 +33,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         protected void configure(HttpSecurity http) throws Exception {
             http.cors().and().csrf().disable().authorizeRequests()
                     .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+                    .antMatchers(HttpMethod.GET, "/api/shop/*").permitAll()
                     .antMatchers("/api/public/*").permitAll()
                     .antMatchers("/").permitAll()
+                    .antMatchers("/h2-console/*").permitAll()
                     .antMatchers("/assets/**", "static/assets/**", "/img/**", "**/favicon.ico").permitAll()
                     .anyRequest().authenticated()
                     .and()
