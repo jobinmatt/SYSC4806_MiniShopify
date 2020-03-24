@@ -56,9 +56,39 @@ public class Cart {
         this.items.add(item);
     }
 
-    public void removeItem(CartItem item) {
+    public void removeItem(long itemId) {
 
-        this.items.remove(item);
+        for (CartItem i: items) {
+            if (i.getId() == itemId) {
+                items.remove(i);
+            }
+        }
+    }
+
+    public boolean containsItem (long itemId) {
+        for (CartItem i: items) {
+            if (i.getId() == itemId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public CartItem getItem (long itemId) {
+        for (CartItem i: items) {
+            if (i.getId() == itemId) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    public void updateItem (long itemId, int quantity) {
+        for (CartItem i: items) {
+            if (i.getId() == itemId) {
+                i.setQuantity(quantity);
+            }
+        }
     }
 
     @Override
