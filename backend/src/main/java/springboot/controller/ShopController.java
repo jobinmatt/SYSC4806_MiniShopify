@@ -80,7 +80,7 @@ public class ShopController {
         }
     }
 
-    @RequestMapping(value = "/api/shop", method = RequestMethod.PATCH, consumes = "application/json")
+    @RequestMapping(value = "/api/shop/edit", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity editShop(@RequestBody ShopDTO editShop){
         if(editShop != null && editShop.getId() != null){
             Optional<Shop> shop = shopRepo.findById(editShop.getId());

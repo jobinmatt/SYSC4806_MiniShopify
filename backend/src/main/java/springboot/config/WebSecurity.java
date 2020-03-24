@@ -22,10 +22,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
         private OwnerDetailsServiceImpl userDetailsService;
         private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-        public WebSecurity(OwnerDetailsServiceImpl userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        private OwnerRepository ownerRepository;
+        public WebSecurity(OwnerDetailsServiceImpl userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder,OwnerRepository ownerRepository) {
             this.userDetailsService = userDetailsService;
             this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+            this.ownerRepository =ownerRepository;
         }
 
         @Override
@@ -37,7 +38,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                     .antMatchers("/assets/**", "static/assets/**", "/img/**", "**/favicon.ico").permitAll()
                     .anyRequest().authenticated()
                     .and()
-                    .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                    .addFilter(new JWTAuthenticationFilter(authenticationManager(),this.ownerRepository))
                     .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                     // this disables session creation on Spring Security
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
