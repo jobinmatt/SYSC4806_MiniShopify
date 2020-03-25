@@ -1,13 +1,12 @@
 package springboot.controller;
 
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springboot.DTO.OwnerDTO;
-import springboot.Repository.OwnerRepository;
-import springboot.Repository.ShopRepository;
+import springboot.repository.OwnerRepository;
+import springboot.repository.ShopRepository;
 import springboot.model.Owner;
 import springboot.model.Shop;
 

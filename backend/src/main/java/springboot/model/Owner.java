@@ -41,6 +41,8 @@ public class Owner {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        ownedShops = new ArrayList<Shop>();
+        personalCart=new Cart();
     }
 
     public long getId() {

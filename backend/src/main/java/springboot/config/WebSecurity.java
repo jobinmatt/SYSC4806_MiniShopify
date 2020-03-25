@@ -1,5 +1,8 @@
 package springboot.config;
 
+import org.springframework.context.annotation.Configuration;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,13 +14,16 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
-import springboot.Repository.OwnerRepository;
+import springboot.repository.OwnerRepository;
 import springboot.filters.JWTAuthenticationFilter;
 import springboot.filters.JWTAuthorizationFilter;
 import springboot.services.OwnerDetailsServiceImpl;
 
+import javax.persistence.EntityManagerFactory;
+
 import static springboot.constants.JWTConstants.SIGN_UP_URL;
 @EnableWebSecurity
+@Configuration
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
         private OwnerDetailsServiceImpl userDetailsService;
