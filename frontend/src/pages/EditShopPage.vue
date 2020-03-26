@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div>
-      <h2><b>CREATE A SHOP</b></h2>
+      <h2><b>EDIT YOUR SHOP</b></h2>
       <div class="flex-form">
         <h2>SHOP NAME:</h2>
         <input class="form_input" type="text" v-model="name" placeholder="Enter shop name..." id="shop_name"><br>
@@ -38,7 +38,7 @@
         products: [],
       }
     },
-    name: 'CreateShopPage',
+    name: 'EditShopPage',
     components: {
       EditItem
     },
