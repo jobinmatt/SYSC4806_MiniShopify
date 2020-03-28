@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import springboot.repository.OwnerRepository;
+import springboot.Repository.OwnerRepository;
 import springboot.model.Owner;
 
 import java.util.Collections;
