@@ -20,6 +20,7 @@ public class Cart {
     public Cart() {
 
         items = new ArrayList<CartItem>();
+        owner = null;
     }
 
     public Cart(Owner owner) {

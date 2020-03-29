@@ -1,13 +1,11 @@
 package springboot.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springboot.DTO.ItemDTO;
 import springboot.DTO.ShopDTO;
 import springboot.Repository.ItemRepository;
-import springboot.Repository.ShopRepository;
-import springboot.Repository.OwnerRepository;
+import springboot.Repository.*;
 import springboot.model.Item;
 import springboot.model.Shop;
 import springboot.model.Owner;
@@ -19,11 +17,12 @@ import java.util.Optional;
 @RestController
 public class ShopController {
 
+
     private ShopRepository shopRepo;
     private OwnerRepository userRepo;
     private ItemRepository itemRepo;
 
-    @Autowired
+
     public ShopController(ShopRepository shopRepo, OwnerRepository userRepo, ItemRepository itemRepo){
         this.shopRepo = shopRepo;
         this.userRepo = userRepo;

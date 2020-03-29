@@ -1,5 +1,6 @@
 package springboot.config;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,6 +19,7 @@ import springboot.services.OwnerDetailsServiceImpl;
 
 import static springboot.constants.JWTConstants.SIGN_UP_URL;
 @EnableWebSecurity
+@Configuration
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
         private OwnerDetailsServiceImpl userDetailsService;
@@ -47,6 +49,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         @Override
         public void configure(AuthenticationManagerBuilder auth) throws Exception {
             auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+            auth.inMemoryAuthentication()
+                    .passwordEncoder(bCryptPasswordEncoder)
+                    .withUser("ADMIN")
+                    .password(bCryptPasswordEncoder.encode("Pass4Admin"))
+                    .roles("USER");
         }
 
         @Bean
