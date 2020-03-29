@@ -57,17 +57,22 @@ public class Cart {
     }
 
     public void removeItem(long itemId) {
-
+        CartItem toRemove = null;
         for (CartItem i: items) {
-            if (i.getId() == itemId) {
-                items.remove(i);
+            if (i.getItemId() == itemId) {
+//                items.remove(i);
+                toRemove = i;
             }
+        }
+        if(toRemove != null){
+            toRemove.setCart(null);
+            items.remove(toRemove);
         }
     }
 
     public boolean containsItem (long itemId) {
         for (CartItem i: items) {
-            if (i.getId() == itemId) {
+            if (i.getItemId() == itemId) {
                 return true;
             }
         }
@@ -76,7 +81,7 @@ public class Cart {
 
     public CartItem getItem (long itemId) {
         for (CartItem i: items) {
-            if (i.getId() == itemId) {
+            if (i.getItemId() == itemId) {
                 return i;
             }
         }
@@ -85,7 +90,7 @@ public class Cart {
 
     public void updateItem (long itemId, int quantity) {
         for (CartItem i: items) {
-            if (i.getId() == itemId) {
+            if (i.getItemId() == itemId) {
                 i.setQuantity(quantity);
             }
         }

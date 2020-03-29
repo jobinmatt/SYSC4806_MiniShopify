@@ -30,7 +30,7 @@ public class CartController {
 
     @RequestMapping(value = "/api/cart/add",method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity addItem(@RequestParam(value = "ownerID") Long ownerID, @RequestBody ItemDTO itemDto){
-        if(itemDto != null && itemDto.getId() != null && !isEmptyNull(itemDto.getName()) && itemDto.getShopId() != null) {
+        if(itemDto != null && itemDto.getId() != null && itemDto.getShopId() != null) {
 
             Optional<Owner> user = ownerRepo.findById(ownerID);
             if (!user.isPresent()) {
@@ -53,6 +53,7 @@ public class CartController {
                     //update repo
                     CartItem itemToAdd = new CartItem(foundItem.getId(), itemDto.getStockQuantity());
                     user.get().getPersonalCart().addItem(itemToAdd);
+                    itemToAdd.setCart(user.get().getPersonalCart());
                     ownerRepo.save(user.get());
                     return ResponseEntity.ok().body("Item added to users cart");
                 } else {
@@ -68,7 +69,7 @@ public class CartController {
 
     @RequestMapping(value = "/api/cart/remove",method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity removeItem(@RequestParam(value = "ownerID") Long ownerID, @RequestBody ItemDTO itemDto){
-        if(itemDto != null && itemDto.getId() != null && !isEmptyNull(itemDto.getName()) && itemDto.getShopId() != null) {
+        if(itemDto != null && itemDto.getId() != null && itemDto.getShopId() != null) {
 
             Optional<Owner> user = ownerRepo.findById(ownerID);
             if (!user.isPresent()) {

@@ -41,6 +41,7 @@ public class Owner {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        personalCart.setOwner(this);
     }
 
     public long getId() {
