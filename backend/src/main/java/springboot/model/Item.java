@@ -23,6 +23,10 @@ public class Item {
     private int stockQuantity;
 
     public Item() {
+        name="";
+        description="";
+        stockQuantity=-1;
+        shop= null;
     }
 
     public Item(String name, String description, int stockQuantity, Shop shop) {
