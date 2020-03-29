@@ -41,6 +41,7 @@ public class OwnerController {
             user.setLastName(newOwner.getLastName());
             user.setEmail(newOwner.getEmail());
             user.setPassword(bCryptPasswordEncoder.encode(newOwner.getPassword()));
+            user.getPersonalCart().setOwner(user);
             ownerRepo.save(user);
             return ResponseEntity.ok().body("{'msg': 'User added','ownerId':"+user.getId()+"}"); //Everything is OK so we send the okay response with the new shop in the body
         } else {

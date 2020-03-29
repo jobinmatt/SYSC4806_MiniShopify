@@ -48,6 +48,7 @@ public class ShopController {
                         item.setName(i.getName());
                         item.setShop(s);
                         item.setStockQuantity(i.getStockQuantity());
+                        item.setPrice(i.getPrice());
                         s.getProducts().add(item);
                     }
                 }
