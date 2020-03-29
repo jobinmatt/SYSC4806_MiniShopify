@@ -41,6 +41,8 @@ public class Owner {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        ownedShops = new ArrayList<Shop>();
+        personalCart=new Cart();
     }
 
     public long getId() {
@@ -109,10 +111,10 @@ public class Owner {
         this.personalCart = personalCart;
     }
 
-    public boolean isMerchant() {
-
-        return ownedShops.size() == 0 ? true: false;
-    }
+//    public boolean isMerchant() {
+//
+//        return ownedShops.size() == 0 ? true: false;
+//    }
 
     @Override
     public String toString() {
