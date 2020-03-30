@@ -29,7 +29,7 @@ public class CartController {
     }
 
     @RequestMapping(value = "/api/cart/add",method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity addItem(@RequestParam(value = "ownerID") Long ownerID, @RequestBody ItemDTO itemDto){
+    public ResponseEntity addItem(@RequestParam(value = "ownerId") Long ownerID, @RequestBody ItemDTO itemDto){
         if(itemDto != null && itemDto.getId() != null && itemDto.getShopId() != null) {
 
             Optional<Owner> user = ownerRepo.findById(ownerID);
@@ -68,7 +68,7 @@ public class CartController {
     }
 
     @RequestMapping(value = "/api/cart/remove",method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity removeItem(@RequestParam(value = "ownerID") Long ownerID, @RequestBody ItemDTO itemDto){
+    public ResponseEntity removeItem(@RequestParam(value = "ownerId") Long ownerID, @RequestBody ItemDTO itemDto){
         if(itemDto != null && itemDto.getId() != null && itemDto.getShopId() != null) {
 
             Optional<Owner> user = ownerRepo.findById(ownerID);
@@ -108,9 +108,9 @@ public class CartController {
     }
 
     @RequestMapping(value = "/api/cart/edit",method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity editItem(@RequestParam(value = "ownerID") Long ownerID, @RequestBody ItemDTO itemDto){
+    public ResponseEntity editItem(@RequestParam(value = "ownerId") Long ownerID, @RequestBody ItemDTO itemDto){
 
-        if(itemDto != null && itemDto.getId() != null && !isEmptyNull(itemDto.getName()) && itemDto.getShopId() != null) {
+        if(itemDto != null && itemDto.getId() != null && itemDto.getShopId() != null) {
 
             Optional<Owner> user = ownerRepo.findById(ownerID);
             if (!user.isPresent()) {
@@ -156,7 +156,7 @@ public class CartController {
     }
 
     @RequestMapping(value = "/api/cart/total",method = RequestMethod.GET, consumes = "application/json")
-    public ResponseEntity total(@RequestParam(value = "ownerID") Long ownerID){
+    public ResponseEntity total(@RequestParam(value = "ownerId") Long ownerID){
 
         double total = 0;
         Optional<Owner> user = ownerRepo.findById(ownerID);
@@ -165,11 +165,11 @@ public class CartController {
         }
 
         if (user.get().getPersonalCart().getItems().isEmpty()){
-            return ResponseEntity.ok().body("Total: " + total);
+            return ResponseEntity.ok().body("Total: Empty Cart");
         }
 
         for (CartItem item: user.get().getPersonalCart().getItems()) {
-            Optional<Item> found = itemRepo.findById(item.getId());
+            Optional<Item> found = itemRepo.findById(item.getItemId());
             if (found.isPresent()) {
                 total += found.get().getPrice() * item.getQuantity();
             }
@@ -177,8 +177,8 @@ public class CartController {
         return ResponseEntity.ok().body("Total: " + total);
     }
 
-    @RequestMapping(value = "/api/cart",method = RequestMethod.GET, consumes = "application/json")
-    public ResponseEntity getCart(@RequestParam(value = "ownerID") Long ownerID){
+    @GetMapping(value = "/api/cart")
+    public ResponseEntity getCart(@RequestParam(value = "ownerId") Long ownerID){
 
         Optional<Owner> user = ownerRepo.findById(ownerID);
         if (!user.isPresent()) {

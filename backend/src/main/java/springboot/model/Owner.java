@@ -37,6 +37,7 @@ public class Owner {
 
     public Owner(String firstName, String lastName, String email, String password) {
 
+        this();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

@@ -62,7 +62,6 @@ public class ShopControllerTests {
     @InjectMocks
     private ShopController shopController = spy(new ShopController(shopRepository, ownerRepository, itemRepository));
 
-
     @Autowired
     private WebApplicationContext wac;
 
@@ -91,8 +90,9 @@ public class ShopControllerTests {
         ArrayList<String> tempTags = new ArrayList<String>();
         tempTags.add("tag1");
         tempTags.add("tag2");
-        this.i1 = new Item ("toothbrush","use it lol", 1, 2.0,s1);
-        this.i1 = new Item ("toothpaste","hi", 2, 1.0,s1);
+
+        this.i1 = new Item ("toothbrush","use it lol", 1, 1, s1);
+        this.i2 = new Item ("toothpaste","hi", 2, 1, s1);
         ArrayList<Item> tempItems = new ArrayList<Item>();
         tempItems.add(i1);
         tempItems.add(i2);

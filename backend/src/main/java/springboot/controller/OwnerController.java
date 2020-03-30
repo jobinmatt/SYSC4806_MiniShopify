@@ -20,7 +20,7 @@ public class OwnerController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public OwnerController(OwnerRepository userRepo, ShopRepository shopRepo,BCryptPasswordEncoder bCryptPasswordEncoder ){
+    public OwnerController(OwnerRepository userRepo, ShopRepository shopRepo, BCryptPasswordEncoder bCryptPasswordEncoder){
         this.ownerRepo = userRepo;
         this.shopRepo = shopRepo;
         this.bCryptPasswordEncoder=bCryptPasswordEncoder;
@@ -29,7 +29,12 @@ public class OwnerController {
     @RequestMapping(value = "/api/owner",method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity createOwner(@RequestBody OwnerDTO newOwner){
         if(newOwner != null && !isEmptyNull(newOwner.getFirstName()) && !isEmptyNull(newOwner.getLastName()) && !isEmptyNull(newOwner.getEmail())
-                && newOwner.getPassword() != null){
+                && !isEmptyNull(newOwner.getPassword())){
+
+            Optional<Owner> userId = ownerRepo.findById(newOwner.getId());
+            if(userId.isPresent()){
+                return ResponseEntity.badRequest().body("User already exists");
+            }
 
             Owner user = ownerRepo.findByEmail(newOwner.getEmail());
             if(user != null){
@@ -43,15 +48,15 @@ public class OwnerController {
             user.setPassword(bCryptPasswordEncoder.encode(newOwner.getPassword()));
             user.getPersonalCart().setOwner(user);
             ownerRepo.save(user);
-            return ResponseEntity.ok().body("{'msg': 'User added','ownerId':"+user.getId()+"}"); //Everything is OK so we send the okay response with the new shop in the body
+            return ResponseEntity.ok().body("{'msg': 'User added','ownerId': "+ user.getId()+"}"); //Everything is OK so we send the okay response with the new shop in the body
         } else {
             return ResponseEntity.badRequest().body("Owner object was null");
         }
     }
 
-    @RequestMapping(value = "/api/login",method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/api/login", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity login (@RequestBody OwnerDTO owner) {
-        if (owner != null && !isEmptyNull(owner.getEmail()) && owner.getPassword() != null) {
+        if (owner != null && !isEmptyNull(owner.getEmail()) && !isEmptyNull(owner.getPassword())) {
 
             Owner user = ownerRepo.findByEmail(owner.getEmail());
 
@@ -100,7 +105,7 @@ public class OwnerController {
         }
     }
 
-    @RequestMapping(value = "/api/owner", method = RequestMethod.PATCH, consumes = "application/json")
+    @RequestMapping(value = "/api/owner/edit", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity editOwner(@RequestBody OwnerDTO editOwner){
         if(editOwner != null && editOwner.getId() != null){
             Optional<Owner> user = ownerRepo.findById(editOwner.getId());
