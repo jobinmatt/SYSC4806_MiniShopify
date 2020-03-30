@@ -90,6 +90,7 @@ public class ShopControllerTests {
         ArrayList<String> tempTags = new ArrayList<String>();
         tempTags.add("tag1");
         tempTags.add("tag2");
+
         this.i1 = new Item ("toothbrush","use it lol", 1, 1, s1);
         this.i2 = new Item ("toothpaste","hi", 2, 1, s1);
         ArrayList<Item> tempItems = new ArrayList<Item>();
