@@ -21,7 +21,7 @@
   </div>
 </template>
 
-<script scoped>
+<script>
 import axios from 'axios'
 import EditItem from '../components/EditItem'
 import {
@@ -109,7 +109,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .content {
     margin: 2% 15% 0% 15%;
     background: #DDECFF;
