@@ -51,6 +51,11 @@
 
 <style>
   @import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+
+  * {
+    font-family: Nunito;
+  }
+
   #navbar {
     display: flex;
     margin-left: 15%;
@@ -64,7 +69,6 @@
   }
 
   #title {
-    font-family: Nunito;
     font-style: normal;
     font-weight: bold;
     font-size: 36px;
@@ -78,7 +82,7 @@
     justify-content: space-between;
   }
 
-  input{
+  input {
     padding: 12px 20px;
     margin: 8px 4px;
     box-sizing: border-box;

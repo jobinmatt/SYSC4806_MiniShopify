@@ -1,7 +1,7 @@
 <template>
   <div class='content'>
     <div>
-      <h2><b>CREATE A SHOP</b></h2>
+      <h1><b>CREATE A SHOP</b></h1>
       <div class='flex-form'>
         <h2>SHOP NAME:</h2>
         <input class='form_input' type='text' v-model='name' placeholder='Enter shop name...' id='shop_name'><br>
@@ -12,8 +12,8 @@
         <input class='form_input' type='text' v-model='tags'
                placeholder='Enter shop tags (separate tags with a comma)...' id='shop_tags'><br>
         <div>
-          <component v-for='product in products' v-bind:key='product' v-bind:is='product'/>
-          <button class='add_button' v-on:click='addNewItem'>+</button>
+          <div v-for='(item, index) in editItemsComponents' v-bind:key='item' v-bind:is='item' v-bind:index='index'/>
+          <button class='add_button' v-on:click='addItemComponent'>+</button>
         </div>
         <button class='button' v-on:click='createShop'>Create Shop</button>
       </div>
@@ -22,91 +22,111 @@
 </template>
 
 <script>
-import axios from 'axios'
-import EditItem from '../components/EditItem'
-import {
-  getCookie,
-  OWNER_ID_HEADER_STRING,
-  TOKEN_COOKIE_HEADER,
-  TOKEN_PREFIX
-} from '../constants/constants'
-export default {
-  data () {
-    return {
-      response: [],
-      errors: [],
-      name: '',
-      description: '',
-      tags: '',
-      userId: 0,
-      products: []
-    }
-  },
-  name: 'CreateShopPage',
-  components: {
-    EditItem
-  },
-  methods: {
-    addNewItem () {
-      this.products.push(EditItem)
-    },
-    getTags (input) {
-      // get individual tags
-      var tempTags = input.split(',')
-      var tags = []
-      tempTags.forEach(function (tag) {
-        tags.push(tag.trim())
-      })
-      return tags
-    },
-    createShop () {
-      if (this.checkInputFields()) {
-        var token = JSON.parse(getCookie(TOKEN_COOKIE_HEADER))
-        console.log(token)
-        this.userId = token[OWNER_ID_HEADER_STRING]
-        var tags = this.getTags(this.tags)
-        axios.post('/api/shop', {
-          name: this.name,
-          desc: this.description,
-          tags: tags,
-          userId: this.userId,
-          products: this.products
-        }, {headers: {Authorization: TOKEN_PREFIX + token[TOKEN_COOKIE_HEADER]}})
-          .then((response) => {
-            // alert('Shop was created!')//REMOVE THIS LATER
-            // console.log(response)
-            this.$router.push({path: '/'})
-          })
-          .catch((error) => {
-            console.log(error)
-          })
-      } else {
-        alert('Input fields were not valid')
-        console.log('Input fields were not valid')
+  import axios from 'axios'
+  import EditItem from '../components/EditItem'
+  import {
+    getCookie,
+    OWNER_ID_HEADER_STRING,
+    TOKEN_COOKIE_HEADER,
+    TOKEN_PREFIX
+  } from '../constants/constants'
+
+  export default {
+    data() {
+      return {
+        response: [],
+        errors: [],
+        name: '',
+        description: '',
+        tags: '',
+        userId: 0,
+        editItemsComponents: [],
+        items: []
       }
     },
-    checkInputFields () {
-      if (this.name !== '' && this.description !== '' && this.tags !== '' && this.products.length > 0) {
-        var tags = this.tags.split(',')
-        tags.forEach(function (tag) {
-          if (tag.trim() === '') {
-            return false
-          }
+    name: 'CreateShopPage',
+    components: {
+      EditItem
+    },
+    methods: {
+      addItemComponent() {
+        this.editItemsComponents.push(EditItem);
+      },
+      removeItemComponent(index) {
+        this.editItemsComponents.splice(index, 1);
+        this.items.splice(index, 1);
+      },
+      addItem() {
+        this.items.push({
+          name: '',
+          description: '',
+          stockPrice: '',
+          stockQuantity: ''
         })
-        this.products.forEach(function (product) {
-          if (product.name === '' || product.description === '' || product.stockQuantity > -1) {
-            alert('Product information not valid')
-            console.log('Product information not valid')
-            return false
-          }
+      },
+      updateItem(index, item) {
+        if (~index) {
+          this.items[index] = item;
+        }
+      },
+      getTags(input) {
+        // get individual tags
+        var tempTags = input.split(',')
+        var tags = []
+        tempTags.forEach(function (tag) {
+          tags.push(tag.trim())
         })
-      } else {
-        return false
+        return tags
+      },
+      createShop() {
+        if (this.checkInputFields()) {
+          var token = JSON.parse(getCookie(TOKEN_COOKIE_HEADER))
+          console.log(token)
+          this.userId = token[OWNER_ID_HEADER_STRING]
+          var tags = this.getTags(this.tags)
+          axios.post('/api/shop', {
+            name: this.name,
+            desc: this.description,
+            tags: tags,
+            userId: this.userId,
+            products: this.items
+          }, {headers: {Authorization: TOKEN_PREFIX + token[TOKEN_COOKIE_HEADER]}})
+            .then((response) => {
+              alert('Shop was created!')
+              // console.log(response)
+              this.$router.push({path: '/'})
+            })
+            .catch((error) => {
+              console.log(error)
+            })
+        } else {
+          alert('Input fields were not valid')
+          console.log('Input fields were not valid')
+        }
+      },
+      checkInputFields() {
+        var success = true
+        if (this.name !== '' && this.description !== '' && this.tags !== '' && this.items.length > 0) {
+          var tags = this.tags.split(',')
+          tags.forEach(function (tag) {
+            if (tag.trim() === '') {
+              console.log('Shop tags not valid')
+              success = false
+            }
+          })
+          this.items.forEach(function (item) {
+            if (item.name === '' || item.description === '' || item.stockPrice === '' || item.stockPrice < 0 || item.stockQuantity < 0 || item.stockQuantity === '') {
+              console.log('Product information not valid')
+              success = false
+            }
+          })
+        } else {
+          return false
+        }
+        return success
       }
-      return true
     }
   }
-}
 </script>
 
 <style scoped>
