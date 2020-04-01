@@ -1,7 +1,7 @@
 <template>
   <div class='content'>
     <div class='center'>
-      <h4>SIGN UP</h4>
+      <h2>SIGN UP</h2>
       <h4>Kickstart Your Business Today!</h4>
       <p v-if='errors.length'>
       <ul class='error_list'>
