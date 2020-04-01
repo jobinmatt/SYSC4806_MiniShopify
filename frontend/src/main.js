@@ -7,9 +7,8 @@ import Dashboard from './pages/Dashboard'
 import SignUp from './pages/SignUp'
 import Cart from './pages/Cart'
 import Error from './pages/Error'
-import ShopPage from './pages/ShopPage'
 import Login from './pages/Login'
-import CreateShopPage from './pages/CreateShopPage'
+import ShopPage from './pages/ShopPage'
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 
@@ -18,9 +17,8 @@ const routes = [
   { path: '/signup', component: SignUp },
   { path: '/cart', component: Cart },
   { path: '/error', component: Error },
-  { path: '/shop', component: ShopPage },
   { path: '/login', component: Login },
-  { path: '/createshop', component: CreateShopPage }
+  { path: '/shop', component: ShopPage }
 ]
 
 const router = new VueRouter({
