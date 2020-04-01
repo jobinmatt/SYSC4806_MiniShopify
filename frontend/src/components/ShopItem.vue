@@ -1,9 +1,10 @@
 <template>
   <div class="content">
     <div class="center">
-      <h2><b>{{name}}</b></h2>
+      <h1><b>Shop: {{name}}</b></h1>
       <div class="flex-form">
-        <h2>{{description}}</h2>
+        <h2>Description: {{description}}</h2>
+        <h2>Owner: {{ownerName}}</h2>
       </div>
     </div>
   </div>
@@ -11,12 +12,7 @@
 
 <script>
   export default {
-    data() {
-      return {
-        name: "",
-        description: "",
-      }
-    },
+    props: {name: String, description: String, ownerName: String},
     name: "ShopItem"
   }
 </script>

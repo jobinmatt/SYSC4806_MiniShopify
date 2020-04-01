@@ -1,11 +1,10 @@
 <template>
   <div class="content">
     <div>
-      <h2><b>MERCHANT SHOPS</b></h2>
+      <h1><b>MERCHANT SHOPS</b></h1>
       <div class="flex-form">
-        <li v-repeat="shops">
-          <ShopItem/>
-        </li>
+        <ShopItem v-for="shop in shops" :key="shop.id" v-bind:name="shop.name" v-bind:description="shop.description"
+                  v-bind:owner-name="shop.owner.firstName +' '+ shop.owner.lastName"/>
       </div>
     </div>
   </div>
@@ -13,17 +12,56 @@
 
 <script>
   import ShopItem from "../components/ShopItem";
+  import {
+    getCookie,
+    OWNER_ID_HEADER_STRING,
+    STATUS_OK_CODE,
+    TOKEN_COOKIE_HEADER,
+  } from "../constants/constants";
+  import axios from "axios";
 
   export default {
-    data() {
-      return {
-        shops: [],
-      }
-    },
+    name: "MerchantShops",
     components: {
       ShopItem
     },
-    name: "MerchantShops"
+    mounted() {
+      if (getCookie(TOKEN_COOKIE_HEADER) !== '') {
+        var token = JSON.parse(getCookie(TOKEN_COOKIE_HEADER))
+        this.userId = token[OWNER_ID_HEADER_STRING]
+      }
+      this.loadShops()
+    },
+    data() {
+      return {
+        userId: null,
+        shops: [],
+      }
+    },
+    methods: {
+      loadShops() {
+        var currentUserId = this.userId;
+        var userShops = [];
+        axios.get('/api/public/allShops')
+          .then((response) => {
+            if (response.status === STATUS_OK_CODE) {
+              if (currentUserId !== null) {
+                response.data.forEach(function (shop) {
+                  if (currentUserId == shop.owner.id) {
+                    userShops.push(shop);
+                  }
+                });
+                this.shops = userShops;
+              } else {
+                this.shops = response.data;
+              }
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      },
+    },
   }
 </script>
 
