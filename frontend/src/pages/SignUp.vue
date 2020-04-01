@@ -3,26 +3,22 @@
     <div class='center'>
       <icon></icon>
       <h1>Mini-Shopify</h1>
-
+      <h4>SIGN UP</h4>
+      <h4>Kickstart Your Business Today!</h4>
+      <p v-if='errors.length'>
+      <ul>
+        <li v-for='error in errors' v-bind:key='error' class='errors'> {{ error }}</li>
+      </ul>
+      </p>
       <div class='flex-form'>
-        <div class='instr'>
-          <h4>SIGN UP</h4>
-          <h4>Kickstart Your Business Today!</h4>
-        </div>
-        <p v-if='errors.length'>
-        <ul>
-          <li v-for='error in errors' v-bind:key='error' class='errors'> {{ error }}</li>
-        </ul>
-        </p>
         <div class='half'>
-          <input v-model='firstName' class='signupform' id='firstname' type='text' placeholder='First Name'>
-          <input v-model='lastName' class='signupform' id='lastname' type='text' placeholder='Last Name'>
+          <input v-model='firstName' id='firstname' type='text' placeholder='First Name'>
+          <input v-model='lastName' id='lastname' type='text' placeholder='Last Name'>
         </div>
-        <input v-model='email' class='signupform' type='email' placeholder='Email' id='email'><br>
-        <input v-model='password' class='signupform' type='password' placeholder='Password' id='password'><br>
-        <input v-model='cpassword' class='signupform' type='password' placeholder='Confirm Password' id='cpassword'><br>
+        <input v-model='email' type='email' placeholder='Email' id='email'>
+        <input v-model='password' type='password' placeholder='Password' id='password'>
+        <input v-model='cpassword' type='password' placeholder='Confirm Password' id='cpassword'>
         <button class='button' @click='this.signUp'>Sign Up</button>
-
       </div>
     </div>
   </div>
@@ -129,14 +125,6 @@
     justify-content: center;
   }
 
-  #firstname {
-    width: 50%;
-  }
-
-  #lastname {
-    width: 50%;
-  }
-
   .half {
     display: flex;
     flex-direction: row;
@@ -148,7 +136,7 @@
   }
 
   .button {
-    margin: 10px 5% 10px 5%;
+    margin: 10px 0% 10px 0%;
     padding: 10px;
     border-radius: 10px;
   }
