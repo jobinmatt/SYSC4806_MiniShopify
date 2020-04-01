@@ -2,7 +2,6 @@
   <div class='content'>
     <div class='center'>
       <icon></icon>
-      <h1>Mini-Shopify</h1>
       <h4>LOGIN</h4>
       <h4>Kickstart Your Business Today!</h4>
       <p v-if='errors.length'>
