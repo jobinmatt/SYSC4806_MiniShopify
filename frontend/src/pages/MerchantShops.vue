@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div>
-      <h2><b>YOUR SHOPS</b></h2>
+      <h2><b>MERCHANT SHOPS</b></h2>
       <div class="flex-form">
         <li v-repeat="shops">
           <ShopItem/>
@@ -23,7 +23,7 @@
     components: {
       ShopItem
     },
-    name: "UserShopsPage"
+    name: "MerchantShops"
   }
 </script>
 
