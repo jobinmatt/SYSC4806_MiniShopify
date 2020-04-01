@@ -56,6 +56,14 @@
     font-family: Nunito;
   }
 
+  a:hover {
+    cursor: pointer;
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
+
   #navbar {
     display: flex;
     margin-left: 15%;
