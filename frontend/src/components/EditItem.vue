@@ -1,13 +1,18 @@
 <template>
   <div class='content'>
+    <button id='remove_button' @click='removeItem'>-</button>
     <div class='center'>
-      <h2><b>CREATE AN ITEM</b></h2>
+      <h1><b>CREATE AN ITEM</b></h1>
       <div class='flex-form'>
         <h2>ITEM NAME:</h2>
         <input class='form_input' type='text' v-model='name' placeholder='Enter item name...' id='item_name'><br>
         <h2>ITEM DESCRIPTION:</h2>
         <input class='form_input' type='text' v-model='description' placeholder='Enter item description...'
                id='item_description'><br>
+        <h2>PRICE:</h2>
+        <input class='form_input' type='number' min='0.00' step="1.00" v-model='stockPrice'
+               placeholder='Enter item price...'
+               id='item_price'><br>
         <h2>QUANTITY:</h2>
         <input class='form_input' type='number' min='0' v-model='stockQuantity' placeholder='Enter item quantity...'
                id='item_quantity'><br>
@@ -17,17 +22,49 @@
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      name: '',
-      description: '',
-      stockQuantity: -1
+  export default {
+    props: {index: Number},
+    mounted() {
+      this.$parent.addItem();
+    },
+    data() {
+      return {
+        name: '',
+        description: '',
+        stockPrice: '',
+        stockQuantity: ''
+      }
+    },
+    watch: {
+      name: function () {
+        this.updateItem()
+      },
+      description: function () {
+        this.updateItem()
+      },
+      stockPrice: function () {
+        this.updateItem()
+      },
+      stockQuantity: function () {
+        this.updateItem()
+      },
+    },
+    name: 'EditItem',
+    methods: {
+      updateItem() {
+        const item = {
+          name: this.name,
+          description: this.description,
+          stockPrice: this.stockPrice,
+          stockQuantity: this.stockQuantity
+        }
+        this.$parent.updateItem(this.$props.index, item);
+      },
+      removeItem() {
+        this.$parent.removeItemComponent(this.$props.index);
+      }
     }
-  },
-  name: 'EditItem',
-  methods: {}
-}
+  }
 </script>
 
 <style scoped>
@@ -36,9 +73,17 @@ export default {
     background: #A3CBFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 49px;
-    padding-top: 5%;
+    padding-top: 0;
     padding-bottom: 5%;
     text-align: center;
+  }
+
+  #remove_button {
+    background-color: palevioletred;
+    border-radius: 50%;
+    padding: 2px 8px;
+    color: #DDECFF;
+    margin: 2% 0% 2% 90%;
   }
 
   .center {
