@@ -94,7 +94,7 @@
             .then((response) => {
               alert('Shop was created!')
               // console.log(response)
-              this.$router.push({path: '/'})
+              this.$router.push({path: '/merchant'})
             })
             .catch((error) => {
               console.log(error)
