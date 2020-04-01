@@ -87,6 +87,7 @@
     display: flex;
     line-height: 49px;
     width: 200px;
+    align-items: center;
     justify-content: space-between;
   }
 
@@ -98,7 +99,7 @@
   }
 
   .signup_button {
-    padding: 5% 10% 5% 10%;
+    padding: 8px 12px;
     margin: auto;
     background: #007DC4;
     border-radius: 8px;
