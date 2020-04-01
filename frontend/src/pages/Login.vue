@@ -1,17 +1,21 @@
 <template>
   <div class='content'>
-    <icon></icon>
-    <h1>Mini-Shopify</h1>
-    <h4>LOGIN</h4>
-    <h4>Kickstart Your Business Today!</h4>
-    <p v-if='errors.length'>
-    <ul>
-      <li v-for='error in errors' v-bind:key='error' class='errors'> {{ error }}</li>
-    </ul>
-    </p>
-    <input v-model='email' class='loginform' type='email' placeholder='Email'><br>
-    <input v-model='password' class='loginform' type='password' placeholder='Password'><br>
-    <button class='button' @click='this.login'>Login</button>
+    <div class='center'>
+      <icon></icon>
+      <h1>Mini-Shopify</h1>
+      <h4>LOGIN</h4>
+      <h4>Kickstart Your Business Today!</h4>
+      <p v-if='errors.length'>
+      <ul>
+        <li v-for='error in errors' v-bind:key='error' class='errors'> {{ error }}</li>
+      </ul>
+      </p>
+      <div class='flex-form'>
+        <input v-model='email' type='email' placeholder='Email'>
+        <input v-model='password' type='password' placeholder='Password'>
+        <button class='button' @click='this.login'>Login</button>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -96,8 +100,20 @@
     text-align: center;
   }
 
+  .center {
+    margin: auto;
+    width: 50%;
+  }
+
+  .flex-form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
   .button {
-    margin: 10px 5% 10px 5%;
+    margin: 10px 0% 10px 0%;
     padding: 10px;
     border-radius: 10px;
   }
