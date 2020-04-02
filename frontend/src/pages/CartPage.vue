@@ -52,7 +52,7 @@
           headers: {Authorization: TOKEN_PREFIX + token[TOKEN_COOKIE_HEADER]}
         })
           .then((response) => {
-            console.log(response);
+            console.log(response.data);
           })
           .catch((error) => {
             console.log(error);
@@ -66,7 +66,6 @@
           headers: {Authorization: TOKEN_PREFIX + token[TOKEN_COOKIE_HEADER]}
         })
           .then((response) => {
-            console.log(response);
             this.cartTotal = response.data;
           })
           .catch((error) => {

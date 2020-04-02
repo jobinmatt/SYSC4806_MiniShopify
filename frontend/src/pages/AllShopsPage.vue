@@ -50,7 +50,6 @@
         let userShops = [];
         axios.get('/api/public/allShops')
           .then((response) => {
-            console.log(response);
             this.shops = response.data;
             if (response.status === STATUS_OK_CODE) {
               if (currentUserId !== null) {

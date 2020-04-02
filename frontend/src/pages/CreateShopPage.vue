@@ -79,7 +79,6 @@
       createShop() {
         if (this.checkInputFields()) {
           let token = JSON.parse(getCookie(TOKEN_COOKIE_HEADER));
-          console.log(token);
           this.userId = token[OWNER_ID_HEADER_STRING];
           let tags = this.getTags(this.tags);
           axios.post('/api/shop', {

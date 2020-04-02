@@ -92,7 +92,7 @@
           stock: itemQuantity,
         }, {params: {ownerId: this.userId}, headers: {Authorization: TOKEN_PREFIX + token[TOKEN_COOKIE_HEADER]}})
           .then((response) => {
-            console.log(response);
+            console.log(response.status);
             this.getShop();
           })
           .catch((error) => {
