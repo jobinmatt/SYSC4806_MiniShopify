@@ -5,7 +5,7 @@ import App from './App'
 import VueRouter from 'vue-router'
 import Dashboard from './pages/Dashboard'
 import SignUp from './pages/SignUp'
-import Cart from './pages/Cart'
+import CartPage from './pages/CartPage'
 import Error from './pages/Error'
 import Login from './pages/Login'
 import ShopPage from './pages/ShopPage'
@@ -17,13 +17,13 @@ Vue.use(VueRouter)
 
 const routes = [
   {path: '/', component: Dashboard},
-  {path: '/signup', component: SignUp},
-  {path: '/cart', component: Cart, props: true},
-  {path: '/error', component: Error},
-  {path: '/login', component: Login},
+  {path: '/signup', name:'signup', component: SignUp},
+  {path: '/cart', name:'cart', component: CartPage},
+  {path: '/error', name:'error', component: Error},
+  {path: '/login', name:'login', component: Login},
   {path: '/shop', name: 'shop', component: ShopPage, props: (route) => ({shopId: route.query.shopId})},
   {path: '/create', name: 'create', component: CreateShopPage},
-  {path: '/all_shops', component: AllShopsPage, props: {allShops: false}}
+  {path: '/all_shops', name: 'all_shops', component: AllShopsPage}
 ]
 
 const router = new VueRouter({
