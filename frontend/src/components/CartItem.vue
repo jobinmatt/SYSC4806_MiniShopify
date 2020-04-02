@@ -3,7 +3,6 @@
     <h2>Name: {{name}}</h2>
     <h3>Description: {{description}}</h3>
     <h3>Price: {{price}}</h3>
-    <h3>Quantity: {{quantity}}</h3>
     <div class="cart_remove_options">
       <button class='remove_from_cart_button' @click='removeItemFromCart'>Remove From Cart</button>
     </div>
