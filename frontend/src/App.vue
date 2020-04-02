@@ -2,10 +2,10 @@
   <div id='app'>
     <div id='navbar'>
       <div>
-            <router-link to='/' tag='span' id="title">Mini-Shopify</router-link>
+        <router-link to='/' tag='span' id="title"><a class="dashboard_link">Mini-Shopify</a></router-link>
       </div>
       <div class='links'>
-        <span><a @click='toggleLogin'>{{linkTextLogin}}</a></span>
+        <span class="login_button"><a @click='toggleLogin'>{{linkTextLogin}}</a></span>
         <select v-if="isUserLogged" class="signup_button" @change="handleChange">
           <option value="" selected disabled hidden>More</option>
           <option value='cart'>Cart</option>
@@ -43,6 +43,7 @@
         setCookie(TOKEN_COOKIE_HEADER, '', 0)
         this.isUserLogged = false
         this.linkTextLogin = 'Login'
+        this.$router.push({path: '/'})
       },
       toggleLogin: function () {
         if (this.isUserLogged) {
@@ -51,10 +52,10 @@
           this.$router.push({path: '/login'})
         }
       },
-      handleChange: function(e) {
+      handleChange: function (e) {
         let val = e.target.value
         console.log(val)
-        this.$router.push({path: '/'+val})
+        this.$router.push({path: '/' + val})
       }
     }
   }
@@ -86,9 +87,15 @@
     border-radius: 30px;
     justify-content: space-between;
   }
+
+  .dashboard_link {
+    color: #000000;
+  }
+
   option {
     text-align: center;
   }
+
   #title {
     font-style: normal;
     font-weight: bold;
@@ -109,6 +116,10 @@
     margin: 8px 4px;
     box-sizing: border-box;
     border-radius: 10px;
+  }
+
+  .login_button {
+    margin: auto;
   }
 
   .signup_button {

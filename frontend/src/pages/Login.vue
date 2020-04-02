@@ -77,7 +77,7 @@
               const strCookie = JSON.stringify(myCookie)
               setCookie(TOKEN_COOKIE_HEADER, strCookie, 10)
               this.$emit('userLogin')
-              this.$router.go(-1)
+              this.$router.push({path: '/'})
             })
             .catch((error) => {
               console.log(error)
@@ -90,7 +90,7 @@
 </script>
 <style scoped>
   .content {
-    margin: 2% 15% 0 15%;
+    margin: 16px 15% 0 15%;
     background: #DDECFF;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
     border-radius: 49px;

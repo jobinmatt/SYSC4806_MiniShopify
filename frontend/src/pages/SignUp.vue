@@ -102,7 +102,7 @@
 </script>
 <style scoped>
   .content {
-    margin: 2% 15% 0 15%;
+    margin: 16px 15% 0 15%;
     background: #DDECFF;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
     border-radius: 49px;
