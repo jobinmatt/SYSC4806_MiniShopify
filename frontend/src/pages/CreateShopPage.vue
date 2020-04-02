@@ -140,7 +140,7 @@
   }
 
   .form_input {
-    margin: 10px 5% 10px 5%;
+    margin: 10px 0 10px 0;
     padding: 10px;
     border-radius: 10px;
     border: #FFFFFF;
