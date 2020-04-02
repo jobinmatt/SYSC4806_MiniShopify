@@ -9,8 +9,9 @@
         <select v-if="isUserLogged" class="signup_button" @change="handleChange">
           <option value="" selected disabled hidden>More</option>
           <option value='cart'>Cart</option>
-          <option value='merchant'>My Shops</option>
-          <option value='shop'>Add Shop</option>
+          <option value='all_shops'>My Shops</option>
+          <option value='create'>Add Shop</option>
+          <option value='search'>Search</option>
         </select>
         <router-link v-if="!isUserLogged" class='signup_button' to='/signup'
                      tag='button'>Sign Up

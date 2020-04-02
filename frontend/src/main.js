@@ -5,15 +5,13 @@ import App from './App'
 import VueRouter from 'vue-router'
 import Dashboard from './pages/Dashboard'
 import SignUp from './pages/SignUp'
-import Cart from './pages/Cart'
 import Error from './pages/Error'
 import Login from './pages/Login'
 import ShopPage from './pages/ShopPage'
 import AllShopsPage from './pages/AllShopsPage';
 import CreateShopPage from "./pages/CreateShopPage";
-import MerchantShops from './pages/MerchantShops';
 import Search from './pages/Search'
-
+import CartPage from "./pages/CartPage";
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 
