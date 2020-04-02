@@ -81,7 +81,7 @@
     padding-left: 2%;
     padding-right: 5%;
     background: #DDECFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
     border-radius: 30px;
     justify-content: space-between;
   }
@@ -99,6 +99,7 @@
     display: flex;
     line-height: 49px;
     width: 200px;
+    align-items: center;
     justify-content: space-between;
   }
 
@@ -110,11 +111,12 @@
   }
 
   .signup_button {
-    padding: 5% 10% 5% 10%;
+    color: white;
+    padding: 8px 12px;
     margin: auto;
     background: #007DC4;
+    border: #007DC4;
     border-radius: 8px;
-    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.1);
-    color: white;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
   }
 </style>

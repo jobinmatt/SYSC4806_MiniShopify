@@ -2,11 +2,10 @@
   <div class='content'>
     <div class='center'>
       <icon></icon>
-      <h1>Mini-Shopify</h1>
-      <h4>LOGIN</h4>
+      <h2>LOGIN</h2>
       <h4>Kickstart Your Business Today!</h4>
       <p v-if='errors.length'>
-      <ul>
+      <ul class='error_list'>
         <li v-for='error in errors' v-bind:key='error' class='errors'> {{ error }}</li>
       </ul>
       </p>
@@ -116,6 +115,10 @@
     margin: 10px 0% 10px 0%;
     padding: 10px;
     border-radius: 10px;
+  }
+
+  .error_list {
+    padding-inline-start: 0px;
   }
 
   .errors {
