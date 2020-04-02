@@ -2,12 +2,18 @@
   <div id='app'>
     <div id='navbar'>
       <div>
-        <icon></icon>
-        <span id='title'> Mini-Shopify </span>
+            <router-link to='/' tag='span' id="title">Mini-Shopify</router-link>
       </div>
       <div class='links'>
-        <span><a @click='this.toggleLogin'>{{linkTextLogin}}</a></span>
-        <router-link class='signup_button' to='/signup'
+        <span><a @click='toggleLogin'>{{linkTextLogin}}</a></span>
+        <select v-if="isUserLogged" class="signup_button" @change="handleChange">
+          <option value="" selected disabled hidden>More</option>
+          <option value='cart'>Cart</option>
+          <option value='all_shops'>My Shops</option>
+          <option value='create'>Add Shop</option>
+          <option value='search'>Search</option>
+        </select>
+        <router-link v-if="!isUserLogged" class='signup_button' to='/signup'
                      tag='button'>Sign Up
         </router-link>
       </div>
@@ -44,6 +50,11 @@
         } else {
           this.$router.push({path: '/login'})
         }
+      },
+      handleChange: function(e) {
+        let val = e.target.value
+        console.log(val)
+        this.$router.push({path: '/'+val})
       }
     }
   }
@@ -75,7 +86,9 @@
     border-radius: 30px;
     justify-content: space-between;
   }
-
+  option {
+    text-align: center;
+  }
   #title {
     font-style: normal;
     font-weight: bold;
@@ -91,7 +104,7 @@
     justify-content: space-between;
   }
 
-  input {
+  input, select, option {
     padding: 12px 20px;
     margin: 8px 4px;
     box-sizing: border-box;

@@ -24,7 +24,7 @@
 
 <style scoped>
   .content {
-    flex: 1;
+    flex: 0, 32%;
     cursor: pointer;
     margin: 10px 5%;
     background: #A3CBFF;
