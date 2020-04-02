@@ -1,21 +1,23 @@
 <template>
   <div class='content'>
-    <div>
-      <h1><b>CREATE A SHOP</b></h1>
-      <div class='flex-form'>
-        <h2>SHOP NAME:</h2>
-        <input class='form_input' type='text' v-model='name' placeholder='Enter shop name...' id='shop_name'><br>
-        <h2>SHOP DESCRIPTION:</h2>
-        <input class='form_input' type='text' v-model='description' placeholder='Enter shop description...'
-               id='shop_description'><br>
-        <h2>SHOP TAGS:</h2>
-        <input class='form_input' type='text' v-model='tags'
-               placeholder='Enter shop tags (separate tags with a comma)...' id='shop_tags'><br>
-        <div>
-          <div v-for='(item, index) in editItemsComponents' v-bind:key='item' v-bind:is='item' v-bind:index='index'/>
-          <button class='add_button' v-on:click='addItemComponent'>+</button>
-        </div>
-        <button class='button' v-on:click='createShop'>Create Shop</button>
+    <div class='flex-form'>
+      <div class="shop_info_container">
+        <h2>Shop Name:</h2>
+        <h2 id='shop_name'>{{name}}</h2>
+      </div>
+      <div>
+        <h2>Shop Description:</h2>
+        <h2 id='shop_description'>{{description}}</h2>
+      </div>
+      <div>
+        <h2>Shop Tags:</h2>
+        <h2 id='shop_tags'>{{tags}}</h2>
+      </div>
+      <div class="product_item_container">
+        <ProductItem v-for='(product, index) in products' v-bind:key='product.id' v-bind:id='product.id'
+                     v-bind:name="product.name"
+                     v-bind:description="product.description" v-bind:stockPrice="product.price"
+                     v-bind:stockQuantity="product.stockQuantity"/>
       </div>
     </div>
   </div>
@@ -23,127 +25,108 @@
 
 <script>
   import axios from 'axios'
-  import EditItem from '../components/EditItem'
-  import {
-    getCookie,
-    OWNER_ID_HEADER_STRING,
-    TOKEN_COOKIE_HEADER,
-    TOKEN_PREFIX
-  } from '../constants/constants'
+  import ProductItem from '../components/ProductItem'
+  import {getCookie, OWNER_ID_HEADER_STRING, TOKEN_COOKIE_HEADER, TOKEN_PREFIX,} from '../constants/constants'
 
   export default {
+    name: 'ShopPage',
+    components: {
+      ProductItem,
+    },
+    props: {
+      shopId: {
+        type: String,
+        default: null
+      }
+    },
+    mounted() {
+      if (getCookie(TOKEN_COOKIE_HEADER) !== '') {
+        let token = JSON.parse(getCookie(TOKEN_COOKIE_HEADER));
+        this.userId = token[OWNER_ID_HEADER_STRING];
+      }
+      this.getShop();
+    },
     data() {
       return {
-        response: [],
         errors: [],
         name: '',
         description: '',
         tags: '',
-        userId: 0,
-        editItemsComponents: [],
-        items: []
+        userId: null,
+        ownerId: null,
+        products: []
       }
     },
-    name: 'ShopPage',
-    components: {
-      EditItem
-    },
     methods: {
-      addItemComponent() {
-        this.editItemsComponents.push(EditItem);
-      },
-      removeItemComponent(index) {
-        this.editItemsComponents.splice(index, 1);
-        this.items.splice(index, 1);
-      },
-      addItem() {
-        this.items.push({
-          name: '',
-          description: '',
-          stockPrice: '',
-          stockQuantity: ''
-        })
-      },
-      updateItem(index, item) {
-        if (~index) {
-          this.items[index] = item;
-        }
-      },
-      getTags(input) {
-        // get individual tags
-        var tempTags = input.split(',')
-        var tags = []
-        tempTags.forEach(function (tag) {
-          tags.push(tag.trim())
-        })
-        return tags
-      },
-      createShop() {
-        if (this.checkInputFields()) {
-          var token = JSON.parse(getCookie(TOKEN_COOKIE_HEADER))
-          console.log(token)
-          this.userId = token[OWNER_ID_HEADER_STRING]
-          var tags = this.getTags(this.tags)
-          axios.post('/api/shop', {
-            name: this.name,
-            desc: this.description,
-            tags: tags,
-            userId: this.userId,
-            products: this.items
-          }, {headers: {Authorization: TOKEN_PREFIX + token[TOKEN_COOKIE_HEADER]}})
+      getShop() {
+        if (this.shopId != null) {
+          axios.get('/api/public/shop', {params: {shopId: this.shopId}})
             .then((response) => {
-              alert('Shop was created!')
-              // console.log(response)
-              this.$router.push({path: '/merchant'})
+              console.log(response);
+              this.name = response.data.name;
+              this.description = response.data.description;
+              this.tags = this.formatTags(response.data.tags);
+              this.ownerId = response.data.owner.id;
+              this.products = response.data.products;
             })
             .catch((error) => {
               console.log(error)
-            })
+            });
         } else {
-          alert('Input fields were not valid')
-          console.log('Input fields were not valid')
+          console.log("shopId was null");
         }
       },
-      checkInputFields() {
-        var success = true
-        if (this.name !== '' && this.description !== '' && this.tags !== '' && this.items.length > 0) {
-          var tags = this.tags.split(',')
-          tags.forEach(function (tag) {
-            if (tag.trim() === '') {
-              console.log('Shop tags not valid')
-              success = false
-            }
+      formatTags: (tagsArray) => {
+        let tags = '';
+        tagsArray.forEach((tag) => {
+          tags += '#' + tag + ' ';
+        });
+        return tags;
+      },
+      addItemToCart(itemId, itemQuantity) {
+        let token = JSON.parse(getCookie(TOKEN_COOKIE_HEADER));
+        console.log("OwnerID: ", this.ownerId)
+        axios.post('/api/cart/add', {
+          shopId: this.shopId,
+          id: itemId,
+          stock: itemQuantity,
+        }, {params: {ownerId: this.userId}, headers: {Authorization: TOKEN_PREFIX + token[TOKEN_COOKIE_HEADER]}})
+          .then((response) => {
+            console.log(response);
+            this.getShop();
           })
-          this.items.forEach(function (item) {
-            if (item.name === '' || item.description === '' || item.stockPrice === '' || item.stockPrice < 0 || item.stockQuantity < 0 || item.stockQuantity === '') {
-              console.log('Product information not valid')
-              success = false
-            }
+          .catch((error) => {
+            console.log(error)
           })
-        } else {
-          return false
-        }
-        return success
-      }
+      },
     }
   }
 </script>
 
 <style scoped>
   .content {
-    margin: 2% 15% 0% 15%;
+    margin: 16px 15% 0 15%;
     background: #DDECFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
     border-radius: 49px;
-    padding-top: 5%;
-    padding-bottom: 5%;
+    padding-top: 16px;
+    padding-bottom: 16px;
     text-align: center;
+  }
+
+  .shop_info_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  h2 {
+    margin: 4px;
   }
 
   .flex-form {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     justify-content: center;
   }
 
@@ -151,19 +134,7 @@
     margin: 10px 5% 10px 5%;
     padding: 10px;
     border-radius: 10px;
-  }
-
-  .add_button {
-    width: 50%;
-    margin: 10px;
-    padding: 10px;
-    background-color: #A3CBFF;
-    border-radius: 10px;
-  }
-
-  .button {
-    margin: 10px 5% 10px 5%;
-    padding: 10px;
-    border-radius: 10px;
+    border: #FFFFFF;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
   }
 </style>
