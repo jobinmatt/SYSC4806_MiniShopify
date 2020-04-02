@@ -1,10 +1,10 @@
 <template>
-  <div class="content">
+  <div class="content" v-on:click="selectShop">
     <div class="center">
-      <h1><b>Shop: {{name}}</b></h1>
+      <h3><b>Name: {{name}}</b></h3>
       <div class="flex-form">
-        <h2>Description: {{description}}</h2>
-        <h2>Owner: {{ownerName}}</h2>
+        <h4>Description: {{description}}</h4>
+        <h4>Owner: {{ownerName}}</h4>
       </div>
     </div>
   </div>
@@ -12,19 +12,24 @@
 
 <script>
   export default {
-    props: {name: String, description: String, ownerName: String},
-    name: "ShopItem"
+    name: "ShopItem",
+    props: {name: String, id: Number, description: String, ownerName: String},
+    methods: {
+      selectShop() {
+        this.$router.push({name: 'shop', query: {shopId: this.id.toString()}});
+      },
+    },
   }
 </script>
 
 <style scoped>
   .content {
-    margin: 2% 15% 0% 15%;
+    flex: 1;
+    cursor: pointer;
+    margin: 10px 5%;
     background: #A3CBFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
     border-radius: 49px;
-    padding-top: 5%;
-    padding-bottom: 5%;
     text-align: center;
   }
 

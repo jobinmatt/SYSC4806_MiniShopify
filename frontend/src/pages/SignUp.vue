@@ -1,11 +1,10 @@
 <template>
   <div class='content'>
     <div class='center'>
-      <h1>Mini-Shopify</h1>
-      <h4>SIGN UP</h4>
+      <h2>SIGN UP</h2>
       <h4>Kickstart Your Business Today!</h4>
       <p v-if='errors.length'>
-      <ul>
+      <ul class='error_list'>
         <li v-for='error in errors' v-bind:key='error' class='errors'> {{ error }}</li>
       </ul>
       </p>
@@ -128,10 +127,15 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
   }
 
-  .instr {
-    text-align: left;
+  #firstname {
+    flex: 1;
+  }
+
+  #lastname {
+    flex: 1;
   }
 
   .button {
@@ -140,7 +144,12 @@
     border-radius: 10px;
   }
 
+  .error_list {
+    padding-inline-start: 0px;
+  }
+
   .errors {
+    padding: 4px 0px;
     list-style-type: none;
     border: 2px solid darkred;
     border-radius: 5px;
