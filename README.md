@@ -15,3 +15,278 @@ link: [mini-shopify-4806](https://mini-shopify-4806.herokuapp.com/)
 Feb 18 - [#19](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/19)
 Feb 26 - [#26](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/26)
 Mar 12 - [#62](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/62)
+
+## API Endpoints
+### /api/cart/add?{ownerID}  
+- Add item to user cart
+- POST
+- consumes: "application/json"
+- Params: 
+    RequestBody:
+        {
+            id: "",
+            shopId: ""
+        }
+- Response:
+    HTTP Code: 200
+    Body: "Item added to users cart"
+- Error:
+    HTTP Code: 400
+    Body: Error cause
+
+### /api/cart/remove?{ownerID} 
+- Remove item to user cart 
+- POST
+- consumes: "application/json"
+- Params: 
+    RequestBody:
+        {
+            id: "",
+            shopId: ""
+        }
+- Response:
+    HTTP Code: 200
+    Body: "Item removed from users cart"
+- Error:
+    HTTP Code: 400
+    Body: Error cause
+
+### /api/cart/edit?{ownerID}  
+- Edit items in user cart
+- POST
+- consumes: "application/json"
+- Params: 
+    RequestBody:
+        {
+            id: "",
+            shopId: "",
+            name: "",
+            desc: "",
+            stock: int,
+            price: int
+        }
+- Response:
+    HTTP Code: 200
+    Body: "Item updated from users cart"
+- Error:
+    HTTP Code: 400
+    Body: Error cause
+
+### /api/cart/total?{ownerID}  
+- Get total in user's cart
+- GET
+- consumes: "application/json"
+- Params: 
+- Response:
+    HTTP Code: 200
+    Body: "Total : " + totalVal
+- Error:
+    HTTP Code: 400
+    Body: Error cause
+
+### /api/cart?{ownerID}  
+- Get user Cart
+- GET
+- consumes: "application/json"
+- Params: 
+- Response:
+    HTTP Code: 200
+    Body: User Cart
+- Error:
+    HTTP Code: 400
+    Body: Error cause
+
+### /api/shop  
+- Create new shop
+- POST
+- consumes: "application/json"
+- Params: 
+    RequestBody:
+        {
+            id: int, 
+            name: String,
+            desc: String,
+            tags: [String],
+            userId: int,
+            products: [
+                {
+                    id: int,
+                    shopId: int,
+                    name: String,
+                    desc: String,
+                    stock: int,
+                    price: int
+                }
+            ]
+        }
+- Response:
+    HTTP Code: 200
+    Body: Shop 
+- Error:
+    HTTP Code: 400
+    Body: Error cause
+
+### /api/public/shop?{shopId}  
+- Get Shop
+- GET
+- consumes: "application/json"
+- Params: 
+- Response:
+    HTTP Code: 200
+    Body: Shop 
+- Error:
+    HTTP Code: 400
+    Body: Error cause
+
+### /api/shop/edit  
+- Edit shop information; The the fields that are not null will be updated in the shop
+- POST
+- consumes: "application/json"
+- Params: 
+    RequestBody:
+        {
+            id: int, 
+            name: String,
+            desc: String,
+            tags: [String],
+            userId: int,
+            products: [
+                {
+                    id: int,
+                    shopId: int,
+                    name: String,
+                    desc: String,
+                    stock: int,
+                    price: int
+                }
+            ]
+        }
+- Response:
+    HTTP Code: 200
+    Body: Shop 
+- Error:
+    HTTP Code: 400
+    Body: Error cause
+
+### /api/shop?{shopId}{ownerId}  
+- Delete shop
+- POST
+- consumes: "application/json"
+- Params: 
+    RequestBody:
+        {
+            id: int, 
+            name: String,
+            desc: String,
+            tags: [String],
+            userId: int,
+            products: [
+                {
+                    id: int,
+                    shopId: int,
+                    name: String,
+                    desc: String,
+                    stock: int,
+                    price: int
+                }
+            ]
+        }
+- Response:
+    HTTP Code: 200
+    Body: "Shop ID: " + shopId + " deleted" 
+- Error:
+    HTTP Code: 400
+    Body: Error cause
+
+### /api/owner
+- Create Owner. If any of the fields expect Id is null it will error out.
+- POST
+- consumes: "application/json"
+- Params: 
+    RequestBody:
+        {
+            id: int,
+            firstName: String,
+            lastName: String,
+            email: String,
+            password: String
+        }
+- Response:
+    HTTP Code: 200
+    Body: "{'msg': 'User added','ownerId':"+user.getId()+"}" 
+- Error:
+    HTTP Code: 400
+    Body: Error cause
+
+### /api/login
+- Log user in
+- POST
+- consumes: "application/json"
+- Params: 
+    RequestBody:
+    {
+        email: String,
+        password: String
+    }
+- Response: 
+    HTTP Code: 400
+    Body: Owner
+- Error:
+    HTTP Code: 400
+    Body: Error Cause
+
+### /api/owner/getFromId?{ownerID}
+- Get owner by id
+- GET
+- consumes: "application/json"
+- Params: 
+- Response:
+    HTTP Code: 200
+    Body: Owner
+- Error:
+    HTTP Code: 400
+    Body: Error cause
+
+### /api/owner/getFromEmail?{email}
+- Get owner by email
+- GET
+- consumes: "application/json"
+- Params: 
+- Response:
+    HTTP Code: 200
+    Body: Owner
+- Error:
+    HTTP Code: 400
+    Body: Error cause
+
+### /api/owner
+- Edit owner. Fields that are empty will not be altered
+- PATCH
+- consumes: "application/json"
+- Params: 
+    RequestBody:
+        {
+            id: int,
+            firstName: String,
+            lastName: String,
+            email: String,
+            password: String
+        }
+- Response:
+    HTTP Code: 200
+    Body: Owner
+- Error:
+    HTTP Code: 400
+    Body: Error cause
+
+### /api/owner?{ownerId}
+- Delete Owner
+- DELETE
+- consumes: "application/json"
+- Params: 
+- Response:
+    HTTP Code: 200
+    Body: "Owner ID: " + ownerId  +  " with all shops deleted"
+- Error:
+    HTTP Code: 400
+    Body: Error cause
