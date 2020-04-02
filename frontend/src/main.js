@@ -10,6 +10,7 @@ import Error from './pages/Error'
 import Login from './pages/Login'
 import ShopPage from './pages/ShopPage'
 import MerchantShops from './pages/MerchantShops';
+import Search from './pages/Search'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
@@ -21,7 +22,8 @@ const routes = [
   {path: '/error', component: Error},
   {path: '/login', component: Login},
   {path: '/shop', component: ShopPage, props: {edit: false}},
-  {path: '/merchant', component: MerchantShops, props: true}
+  {path: '/merchant', component: MerchantShops, props: true},
+  {path: '/search', component: Search}
 ]
 
 const router = new VueRouter({

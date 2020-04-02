@@ -19,6 +19,7 @@
 
 <style scoped>
   .content {
+    flex: 0, 32%;
     margin: 2% 15% 0% 15%;
     background: #A3CBFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
