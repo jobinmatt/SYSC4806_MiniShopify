@@ -90,16 +90,12 @@
             products: this.items
           }, {headers: {Authorization: TOKEN_PREFIX + token[TOKEN_COOKIE_HEADER]}})
             .then((response) => {
-              alert('Shop was created!');
-              console.log(response);
+              console.log(response.status);
               this.$router.push({path: '/all_shops'})
             })
             .catch((error) => {
               console.log(error)
             })
-        } else {
-          alert('Input fields were not valid');
-          console.log('Input fields were not valid')
         }
       },
       checkInputFields() {
