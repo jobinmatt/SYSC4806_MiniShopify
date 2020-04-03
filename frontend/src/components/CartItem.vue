@@ -21,7 +21,8 @@
         let token = JSON.parse(getCookie(TOKEN_COOKIE_HEADER));
         let currentUserId = token[OWNER_ID_HEADER_STRING];
         if (currentUserId != '') {
-          axios.post('/api/cart/remove', {
+          axios.post('/api/cart/remove',
+            {
               id: this.id,
               shopId: this.shopId
             },
