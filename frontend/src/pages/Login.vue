@@ -10,8 +10,8 @@
       </ul>
       </p>
       <div class='flex-form'>
-        <input v-model='email' type='email' placeholder='Email'>
-        <input v-model='password' type='password' placeholder='Password'>
+        <input class="form_input" v-model='email' type='email' placeholder='Email'>
+        <input class="form_input" v-model='password' type='password' placeholder='Password'>
         <button class='button' @click='this.login'>Login</button>
       </div>
     </div>
@@ -77,7 +77,7 @@
               const strCookie = JSON.stringify(myCookie)
               setCookie(TOKEN_COOKIE_HEADER, strCookie, 10)
               this.$emit('userLogin')
-              this.$router.go(-1)
+              this.$router.push({path: '/'})
             })
             .catch((error) => {
               console.log(error)
@@ -90,9 +90,9 @@
 </script>
 <style scoped>
   .content {
-    margin: 2% 15% 0% 15%;
+    margin: 16px 15% 0 15%;
     background: #DDECFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
     border-radius: 49px;
     padding-top: 5%;
     padding-bottom: 5%;
@@ -111,10 +111,21 @@
     justify-content: center;
   }
 
-  .button {
-    margin: 10px 0% 10px 0%;
+  .form_input {
+    margin: 10px 4px;
     padding: 10px;
     border-radius: 10px;
+    border: #FFFFFF;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .button {
+    margin: 10px 4px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
   }
 
   .error_list {

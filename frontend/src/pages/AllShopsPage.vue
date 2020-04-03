@@ -11,8 +11,10 @@
         <h3 class="toggle_label">Your Shops</h3>
       </div>
       <div class="flex-form">
-        <ShopItem v-for="shop in shops" :key="shop.id" v-bind:name="shop.name" v-bind:id="shop.id" v-bind:description="shop.description"
-                  v-bind:owner-name="shop.owner.firstName +' '+ shop.owner.lastName"/>
+        <ShopItem v-for="shop in shops" :key="shop.id" v-bind:name="shop.name" v-bind:id="shop.id"
+                  v-bind:description="shop.description"
+                  v-bind:owner-name="shop.owner.firstName +' '+ shop.owner.lastName" v-bind:shopOwnerId="shop.owner.id"
+                  v-bind:currentUserId="userId"/>
       </div>
     </div>
   </div>
@@ -50,6 +52,7 @@
         let userShops = [];
         axios.get('/api/public/allShops')
           .then((response) => {
+            console.log(response)
             this.shops = response.data;
             if (response.status === STATUS_OK_CODE) {
               if (currentUserId !== null) {

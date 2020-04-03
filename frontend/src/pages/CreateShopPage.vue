@@ -1,6 +1,7 @@
 <template>
   <div class='content'>
-    <h2><b>EDIT YOUR SHOP</b></h2>
+    <h2 v-if="!editMode"><b>CREATE YOUR SHOP</b></h2>
+    <h2 v-if="editMode"><b>EDIT YOUR SHOP</b></h2>
     <div class='flex-form'>
       <label for='shop_name'>Shop Name:</label><input class='form_input' type='text' v-model='name'
                                                       placeholder='Enter shop name...' id='shop_name'/>
@@ -15,7 +16,9 @@
         <div v-for='(item, index) in editItemsComponents' v-bind:key='item' v-bind:is='item' v-bind:index='index'/>
         <button class='add_button' v-on:click='addItemComponent'>Add Item</button>
       </div>
-      <button class='button' v-on:click='createShop'>Create Shop</button>
+      <button class='button' v-if="!editMode" v-on:click='createShop'>Create Shop</button>
+      <button class='button' v-if="editMode" v-on:click='updateShop'>Update Shop</button>
+      <button class='delete_button' v-if="editMode" v-on:click='deleteShop'>Delete Shop</button>
     </div>
   </div>
 </template>
@@ -35,8 +38,24 @@
     components: {
       EditItem,
     },
+    props: {
+      shopId: {
+        type: String,
+        default: null
+      }
+    },
+    mounted() {
+      if (getCookie(TOKEN_COOKIE_HEADER) !== '') {
+        let token = JSON.parse(getCookie(TOKEN_COOKIE_HEADER));
+        this.userId = token[OWNER_ID_HEADER_STRING];
+      }
+      if (this.shopId != null) {
+        this.setEditMode();
+      }
+    },
     data() {
       return {
+        editMode: false,
         errors: [],
         name: '',
         description: '',
@@ -47,6 +66,34 @@
       }
     },
     methods: {
+      setEditMode() {
+        this.editMode = true;
+        axios.get('/api/public/shop', {params: {shopId: this.shopId}})
+          .then((response) => {
+            console.log(response);
+            console.log(response.status);
+            this.name = response.data.name;
+            this.description = response.data.description;
+            this.tags = this.parseTags(response.data.tags);
+            this.items = response.data.products;
+            this.populateEditComponents();
+          })
+          .catch((error) => {
+            console.log(error)
+          });
+      },
+      populateEditComponents() {
+        this.items.forEach((item, index) => {
+          this.editItemsComponents.push(EditItem);
+        });
+      },
+      parseTags(tags) {
+        let returnTags = "";
+        tags.forEach((tag) => {
+          returnTags += tag + ', ';
+        });
+        return returnTags.substring(0, returnTags.length - 2);
+      },
       addItemComponent() {
         this.editItemsComponents.push(EditItem);
       },
@@ -91,11 +138,43 @@
             .then((response) => {
               console.log(response.status);
               this.$router.push({path: '/all_shops'})
-            })
-            .catch((error) => {
-              console.log(error)
-            })
+            }).catch((error) => {
+            console.log(error)
+          })
         }
+      },
+      updateShop() {
+        if (this.checkInputFields()) {
+          let token = JSON.parse(getCookie(TOKEN_COOKIE_HEADER));
+          this.userId = token[OWNER_ID_HEADER_STRING];
+          let tags = this.getTags(this.tags);
+          axios.post('/api/shop', {
+            shopId: this.shopId,
+            name: this.name,
+            desc: this.description,
+            tags: tags,
+            userId: this.userId,
+            products: this.items
+          }, {headers: {Authorization: TOKEN_PREFIX + token[TOKEN_COOKIE_HEADER]}})
+            .then((response) => {
+              console.log(response.status);
+              this.$router.push({path: '/all_shops'});
+            }).catch((error) => {
+            console.log(error)
+          });
+        }
+      },
+      deleteShop() {
+        let token = JSON.parse(getCookie(TOKEN_COOKIE_HEADER));
+        axios.delete('/api/shop', {
+          params: {shopId: this.shopId, ownerId: this.userId},
+          headers: {Authorization: TOKEN_PREFIX + token[TOKEN_COOKIE_HEADER]}
+        }).then((response) => {
+          console.log(response.status);
+          this.$router.push({path: '/all_shops'});
+        }).catch((error) => {
+          console.log(error)
+        })
       },
       checkInputFields() {
         let success = true;
@@ -140,7 +219,7 @@
   }
 
   .form_input {
-    margin: 10px 5% 10px 5%;
+    margin: 10px 5%;
     padding: 10px;
     border-radius: 10px;
     border: #FFFFFF;
@@ -171,4 +250,14 @@
     border-radius: 10px;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
   }
+
+  .delete_button {
+    margin: 10px 5%;
+    padding: 10px;
+    background-color: #db7093;
+    border: #db7093;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  }
+
 </style>

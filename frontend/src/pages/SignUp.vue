@@ -10,12 +10,12 @@
       </p>
       <div class='flex-form'>
         <div class='half'>
-          <input v-model='firstName' id='firstname' type='text' placeholder='First Name'>
-          <input v-model='lastName' id='lastname' type='text' placeholder='Last Name'>
+          <input class="form_input firstname" v-model='firstName' id='firstname' type='text' placeholder='First Name'>
+          <input class="form_input lastname" v-model='lastName' id='lastname' type='text' placeholder='Last Name'>
         </div>
-        <input v-model='email' type='email' placeholder='Email' id='email'>
-        <input v-model='password' type='password' placeholder='Password' id='password'>
-        <input v-model='cpassword' type='password' placeholder='Confirm Password' id='cpassword'>
+        <input class="form_input" v-model='email' type='email' placeholder='Email' id='email'>
+        <input class="form_input" v-model='password' type='password' placeholder='Password' id='password'>
+        <input class="form_input" v-model='cpassword' type='password' placeholder='Confirm Password' id='cpassword'>
         <button class='button' @click='this.signUp'>Sign Up</button>
       </div>
     </div>
@@ -89,8 +89,8 @@
             password: this.password
           })
             .then((response) => {
-              console.log(response)
-              this.$router.push({path: '/'})
+              console.log(response.status)
+              this.$router.push({path: '/login'})
             })
             .catch((error) => {
               console.log(error)
@@ -102,9 +102,9 @@
 </script>
 <style scoped>
   .content {
-    margin: 2% 15% 0% 15%;
+    margin: 16px 15% 0 15%;
     background: #DDECFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
     border-radius: 49px;
     padding-top: 5%;
     padding-bottom: 5%;
@@ -130,18 +130,30 @@
     justify-content: center;
   }
 
-  #firstname {
-    flex: 1;
-  }
-
-  #lastname {
-    flex: 1;
-  }
-
-  .button {
-    margin: 10px 0% 10px 0%;
+  .form_input {
+    margin: 10px 4px;
     padding: 10px;
     border-radius: 10px;
+    border: #FFFFFF;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .firstname {
+    flex: 1;
+  }
+
+  .lastname {
+    flex: 1;
+  }
+
+
+  .button {
+    margin: 10px 4px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
   }
 
   .error_list {

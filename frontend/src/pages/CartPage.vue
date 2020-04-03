@@ -4,9 +4,11 @@
       <h2><b>YOUR CART</b></h2>
       <div class="flex-form">
         <CartItem v-for="item in items" :key="item.id" v-bind:id="item.id" v-bind:name="item.name"
-                  v-bind:quantity="item.quantity"/>
+                  v-bind:description="item.description" v-bind:price="item.price"
+                  v-bind:quantity="item.stockQuantity" v-bind:shopId="item.shop.id"/>
+        <h3>{{cartTotal}}</h3>
+        <button class='button' v-if="items.length" v-on:click='checkout'>Checkout</button>
       </div>
-      <h3>{{cartTotal}}</h3>
     </div>
   </div>
 </template>
@@ -33,7 +35,6 @@
         this.userId = token[OWNER_ID_HEADER_STRING];
       }
       this.getCart();
-      this.getTotal();
     },
     data() {
       return {
@@ -46,17 +47,16 @@
       getCart() {
         let token = JSON.parse(getCookie(TOKEN_COOKIE_HEADER));
         let currentUserId = this.userId;
-        let cartItems = [];
         axios.get('/api/cart', {
           params: {ownerId: currentUserId},
           headers: {Authorization: TOKEN_PREFIX + token[TOKEN_COOKIE_HEADER]}
-        })
-          .then((response) => {
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        }).then((response) => {
+          console.log(response.data);
+          this.items = response.data;
+          this.getTotal();
+        }).catch((error) => {
+          console.log(error);
+        });
       },
       getTotal() {
         let token = JSON.parse(getCookie(TOKEN_COOKIE_HEADER));
@@ -71,6 +71,9 @@
           .catch((error) => {
             console.log(error);
           });
+      },
+      checkout() {
+
       },
     },
   }
@@ -92,5 +95,14 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
+
+  .button {
+    margin: 10px 5%;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
   }
 </style>

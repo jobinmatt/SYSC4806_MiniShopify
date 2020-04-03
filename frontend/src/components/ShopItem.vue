@@ -13,10 +13,21 @@
 <script>
   export default {
     name: "ShopItem",
-    props: {name: String, id: Number, description: String, ownerName: String},
+    props: {
+      name: String,
+      id: Number,
+      description: String,
+      ownerName: String,
+      shopOwnerId: Number,
+      currentUserId: Number
+    },
     methods: {
       selectShop() {
-        this.$router.push({name: 'shop', query: {shopId: this.id.toString()}});
+        if (this.shopOwnerId == this.currentUserId) {
+          this.$router.push({name: 'edit', query: {shopId: this.id.toString()}});
+        } else {
+          this.$router.push({name: 'shop', query: {shopId: this.id.toString()}});
+        }
       },
     },
   }
@@ -24,7 +35,7 @@
 
 <style scoped>
   .content {
-    flex: 0, 32%;
+    flex: 1;
     cursor: pointer;
     margin: 10px 5%;
     background: #A3CBFF;
