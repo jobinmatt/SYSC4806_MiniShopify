@@ -18,6 +18,7 @@
       </div>
       <button class='button' v-if="!editMode" v-on:click='createShop'>Create Shop</button>
       <button class='button' v-if="editMode" v-on:click='updateShop'>Update Shop</button>
+      <button class='delete_button' v-if="editMode" v-on:click='deleteShop'>Delete Shop</button>
     </div>
   </div>
 </template>
@@ -84,11 +85,6 @@
       populateEditComponents() {
         this.items.forEach((item, index) => {
           this.editItemsComponents.push(EditItem);
-          this.editItemsComponents[index].index = index;
-          this.editItemsComponents[index].name = item.name;
-          this.editItemsComponents[index].description = item.description;
-          this.editItemsComponents[index].stockPrice = item.price;
-          this.editItemsComponents[index].stockQuantity = item.stockQuantity;
         });
       },
       parseTags(tags) {
@@ -142,10 +138,9 @@
             .then((response) => {
               console.log(response.status);
               this.$router.push({path: '/all_shops'})
-            })
-            .catch((error) => {
-              console.log(error)
-            })
+            }).catch((error) => {
+            console.log(error)
+          })
         }
       },
       updateShop() {
@@ -163,12 +158,23 @@
           }, {headers: {Authorization: TOKEN_PREFIX + token[TOKEN_COOKIE_HEADER]}})
             .then((response) => {
               console.log(response.status);
-              this.$router.push({path: '/all_shops'})
-            })
-            .catch((error) => {
-              console.log(error)
-            })
+              this.$router.push({path: '/all_shops'});
+            }).catch((error) => {
+            console.log(error)
+          });
         }
+      },
+      deleteShop() {
+        let token = JSON.parse(getCookie(TOKEN_COOKIE_HEADER));
+        axios.delete('/api/shop', {
+          params: {shopId: this.shopId, ownerId: this.userId},
+          headers: {Authorization: TOKEN_PREFIX + token[TOKEN_COOKIE_HEADER]}
+        }).then((response) => {
+          console.log(response.status);
+          this.$router.push({path: '/all_shops'});
+        }).catch((error) => {
+          console.log(error)
+        })
       },
       checkInputFields() {
         let success = true;
@@ -244,4 +250,14 @@
     border-radius: 10px;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
   }
+
+  .delete_button {
+    margin: 10px 5%;
+    padding: 10px;
+    background-color: #db7093;
+    border: #db7093;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  }
+
 </style>
