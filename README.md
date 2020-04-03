@@ -15,6 +15,18 @@ link: [mini-shopify-4806](https://mini-shopify-4806.herokuapp.com/)
 Feb 18 - [#19](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/19)
 Feb 26 - [#26](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/26)
 Mar 12 - [#62](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/62)
+Mar 24 - [#84](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/84)
+## DEMO
+
+1. From main page /#/ navigate to /signup by clicking the Sign Up button.
+2. Once you are on the sign page. Enter in your information into the form. If successful, you will be directed to login page.
+3. Enter in credentials, if successful the navbar changes and you have more options for more features on the top right.
+4. Cart Option -> Takes you to cart where you can view items you would like to checkout.
+5. All Shops -> Lets you view all shops, yours and others. Clicking on a shop card will takes you to the Shops detailed page, where you can purchase items.
+6. Add Shop -> lets you add shop, with products.
+7. Search -> lets you search for a shop by a tag, name, or description.
+
+
 
 ## Page Routes
 
@@ -59,6 +71,8 @@ Mar 12 - [#62](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/62)
 - Add item to user cart
 - POST
 - consumes: "application/json"
+- header: 
+     authorization: Bearer {token}
 - Params: 
     RequestBody:
         {
@@ -76,6 +90,8 @@ Mar 12 - [#62](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/62)
 - Remove item to user cart 
 - POST
 - consumes: "application/json"
+- header: 
+     authorization: Bearer {token}
 - Params: 
     RequestBody:
         {
@@ -93,6 +109,8 @@ Mar 12 - [#62](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/62)
 - Edit items in user cart
 - POST
 - consumes: "application/json"
+- header: 
+     authorization: Bearer {token}
 - Params: 
     RequestBody:
         {
@@ -114,6 +132,8 @@ Mar 12 - [#62](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/62)
 - Get total in user's cart
 - GET
 - consumes: "application/json"
+- header: 
+     authorization: Bearer {token}
 - Params: 
 - Response:
     HTTP Code: 200
@@ -126,6 +146,8 @@ Mar 12 - [#62](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/62)
 - Get user Cart
 - GET
 - consumes: "application/json"
+- header: 
+     authorization: Bearer {token}
 - Params: 
 - Response:
     HTTP Code: 200
@@ -138,6 +160,8 @@ Mar 12 - [#62](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/62)
 - Create new shop
 - POST
 - consumes: "application/json"
+- header: 
+     authorization: Bearer {token}
 - Params: 
     RequestBody:
         {
@@ -180,6 +204,8 @@ Mar 12 - [#62](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/62)
 - Edit shop information; The the fields that are not null will be updated in the shop
 - POST
 - consumes: "application/json"
+- header: 
+     authorization: Bearer {token}
 - Params: 
     RequestBody:
         {
@@ -210,6 +236,8 @@ Mar 12 - [#62](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/62)
 - Delete shop
 - POST
 - consumes: "application/json"
+- header: 
+     authorization: Bearer {token}
 - Params: 
     RequestBody:
         {
@@ -277,6 +305,8 @@ Mar 12 - [#62](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/62)
 - Get owner by id
 - GET
 - consumes: "application/json"
+- header: 
+     authorization: Bearer {token}
 - Params: 
 - Response:
     HTTP Code: 200
@@ -289,6 +319,8 @@ Mar 12 - [#62](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/62)
 - Get owner by email
 - GET
 - consumes: "application/json"
+- header: 
+     authorization: Bearer {token}
 - Params: 
 - Response:
     HTTP Code: 200
@@ -301,6 +333,8 @@ Mar 12 - [#62](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/62)
 - Edit owner. Fields that are empty will not be altered
 - PATCH
 - consumes: "application/json"
+- header: 
+     authorization: Bearer {token}
 - Params: 
     RequestBody:
         {
@@ -321,6 +355,8 @@ Mar 12 - [#62](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/62)
 - Delete Owner
 - DELETE
 - consumes: "application/json"
+- header: 
+     authorization: Bearer {token}
 - Params: 
 - Response:
     HTTP Code: 200
