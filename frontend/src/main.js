@@ -23,6 +23,7 @@ const routes = [
   {path: '/login', name:'login', component: Login},
   {path: '/shop', name: 'shop', component: ShopPage, props: (route) => ({shopId: route.query.shopId})},
   {path: '/create', name: 'create', component: CreateShopPage},
+  {path: '/edit', name: 'edit', component: CreateShopPage, props: (route) => ({shopId: route.query.shopId})},
   {path: '/all_shops', name: 'all_shops', component: AllShopsPage},
   {path: '/search', component: Search}
 ]

@@ -62,7 +62,7 @@
         if (this.shopId != null) {
           axios.get('/api/public/shop', {params: {shopId: this.shopId}})
             .then((response) => {
-              console.log(response);
+              console.log(response.status);
               this.name = response.data.name;
               this.description = response.data.description;
               this.tags = this.formatTags(response.data.tags);
