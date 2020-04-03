@@ -16,6 +16,44 @@ Feb 18 - [#19](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/19)
 Feb 26 - [#26](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/26)
 Mar 12 - [#62](https://github.com/jobinmatt/SYSC4806_MiniShopify/issues/62)
 
+## Page Routes
+
+### /#/
+- landing page
+- here you can login or signup
+
+### /#/signup
+- signup page
+- sign up for an account. need one to access most features.
+
+### /#/cart
+- cart page
+- see wats in you cart
+
+### /#/login
+- login page
+- here is where you can get access to other features
+
+### /#/shop?{shopId}
+- single shop page detailed view
+- view a single shop in a more detailed view and purchase items.
+
+### /#/create
+- create shop
+- can create a new shop with new products, inventory, and tags.
+
+### /#/edit?{shopId}
+- edit a shop
+- can edit a certain shop given the id, and you are the owner.
+
+### /#/all_shops
+- view multiple shops
+- can view all shops or just your own shops.
+
+### /#/search
+- search for shops
+- can search by name, description, or tags.
+
 ## API Endpoints
 ### /api/cart/add?{ownerID}  
 - Add item to user cart
